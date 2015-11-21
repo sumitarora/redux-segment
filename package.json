@@ -1,0 +1,40 @@
+{
+  "name": "redux-segment",
+  "version": "0.0.2",
+  "description": "Segment.io analytics integration for redux.",
+  "main": "build/segment.js",
+  "scripts": {
+    "test": "browserify -p [ babelify ] test/**/*-test.js | tape-run | tap-dot",
+    "test-watch": "watch 'npm test' src/ test/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rangle/redux-segment.git"
+  },
+  "keywords": [
+    "redux",
+    "react",
+    "segment",
+    "segment.io",
+    "analytics",
+    "google",
+    "analytics",
+    "ga",
+    "tag",
+    "manager"
+  ],
+  "author": "Rangle.io <redux-segment@rangle.io>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rangle/redux-segment/issues"
+  },
+  "homepage": "https://github.com/rangle/redux-segment#readme",
+  "devDependencies": {
+    "babelify": "^7.2.0",
+    "browserify": "^12.0.1",
+    "redux": "^3.0.4",
+    "tap-dot": "^1.0.0",
+    "tape-run": "^2.1.0",
+    "watch": "^0.16.0"
+  }
+}
