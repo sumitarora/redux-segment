@@ -1,5 +1,5 @@
 # Redux Segment
-<img src="./logo.png" width="48"> _Segment.io analytics integration for redux._  
+<a href="./.tag"><img src="./logo.png" width="48"></a> _Segment.io analytics integration for redux._  
 
 [![npm](https://img.shields.io/npm/v/npm.svg)](https://www.npmjs.com/package/redux-segment) [![Circle CI](https://circleci.com/gh/rangle/redux-segment.svg?style=svg)](https://circleci.com/gh/rangle/redux-segment)
 
