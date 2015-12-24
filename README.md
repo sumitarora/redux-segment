@@ -119,8 +119,60 @@ _You can, of course, still track all actions if you want by explictly
 marking each one._
 
 
-
 ## Installation
 ```
 npm install --save redux-segment
 ```
+
+
+## Usage
+
+### 1. Create and apply the tracker
+```
+import { applyMiddleware, createStore, compose } from 'redux';
+import { reduxReactRouter } from 'redux-router'
+import createHistory from 'history/lib/createBrowserHistory'
+import routes from '../routes'
+import thunk from 'redux-thunk'
+import api from '../middleware/api'
+import rootReducer from '../reducers'
+import { createTracker } from 'redux-segment';
+
+const tracker = createTracker();  // Create the tracker...
+
+const finalCreateStore = compose(
+  applyMiddleware(thunk, api, tracker),  // and then apply it!
+  reduxReactRouter({ routes, createHistory })
+)(createStore)
+
+export default function configureStore(initialState) {
+  return finalCreateStore(rootReducer, initialState)
+}
+```
+_Note: Make sure to include the tracker *after* thunk or promise
+middleware so that it sees actual actions._
+
+### 2. Copy the segment snippet into the header of your site
+```
+<head>
+  <title>My amazing app</title>
+  ...
+  <script type="text/javascript">
+    !function(){var
+  analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment
+  snippet included
+  twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return
+  function(){var
+  e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return
+  analytics}};for(var t=0;t<analytics.methods.length;t++){var
+  e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var
+  e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var
+  n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+    analytics.load("YOUR_WRITE_KEY");
+    // Make sure to remove any calls to `analytics.page()`!
+    }}();
+  </script>
+</head>
+```
+
+### 3. You're done!
