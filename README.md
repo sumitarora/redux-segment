@@ -80,7 +80,7 @@ state is small and centralized and changes are explicit. You should,
 however, resist the temptation. This constraint is core to the **design
 philosophy** of Redux Segment.
 
-> Analytics is about **learning**
+> Analytics is about **learning**  
 <img src="https://pbs.twimg.com/media/CTeedmKWEAAtR44.png">
 
 -- [@segment](https://twitter.com/segment)
