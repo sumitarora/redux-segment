@@ -176,3 +176,9 @@ middleware so that it sees actual actions._
 ```
 
 **3. You're done!**
+
+
+## License
+
+Code and documentation copyright 2015-2016 Rangle.io. Code released
+under the [MIT license](./LICENSE). Docs released under Creative Commons.
