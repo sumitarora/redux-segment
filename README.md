@@ -127,7 +127,7 @@ npm install --save redux-segment
 
 ## Usage
 
-### 1. Create and apply the tracker
+**1. Create and apply the tracker**
 ```
 import { applyMiddleware, createStore, compose } from 'redux';
 import { reduxReactRouter } from 'redux-router'
@@ -152,7 +152,7 @@ export default function configureStore(initialState) {
 _Note: Make sure to include the tracker *after* thunk or promise
 middleware so that it sees actual actions._
 
-### 2. Copy the segment snippet into the header of your site
+**2. Copy the segment snippet into the header of your site**
 ```
 <head>
   <title>My amazing app</title>
@@ -175,4 +175,4 @@ middleware so that it sees actual actions._
 </head>
 ```
 
-### 3. You're done!
+**3. You're done!**
