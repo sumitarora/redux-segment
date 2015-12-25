@@ -4,7 +4,7 @@
   "description": "Segment.io analytics integration for redux.",
   "main": "build/segment.js",
   "scripts": {
-    "test": "browserify -p [ babelify ] test/**/*-test.js | tape-run | tap-dot",
+    "test": "browserify test/*-test.js -t babelify | tape-run --browser chrome | tap-spec",
     "test-watch": "watch 'npm test' src/ test/"
   },
   "repository": {
@@ -14,6 +14,9 @@
   "keywords": [
     "redux",
     "react",
+    "react-redux",
+    "angular",
+    "ng-redux",
     "segment",
     "segment.io",
     "analytics",
@@ -30,10 +33,18 @@
   },
   "homepage": "https://github.com/rangle/redux-segment#readme",
   "devDependencies": {
-    "babelify": "^7.2.0",
+    "babelify": "6.4.0",
     "browserify": "^12.0.1",
-    "redux": "^3.0.4",
-    "tap-dot": "^1.0.0",
+    "history": "^1.17.0",
+    "react": "^0.14.3",
+    "react-addons-test-utils": "^0.14.3",
+    "react-dom": "^0.14.3",
+    "react-redux": "^4.0.5",
+    "react-router": "^1.0.3",
+    "redux": "^3.0.5",
+    "redux-simple-router": "^1.0.2",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.3.0",
     "tape-run": "^2.1.0",
     "watch": "^0.16.0"
   }
