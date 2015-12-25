@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, Link } from 'react-router';
 import createHistory from 'history/lib/createHashHistory';
 import { syncReduxAndRouter, routeReducer } from 'redux-simple-router';
+import { ReduxRouter, routerStateReducer, reduxReactRouter } from 'redux-router';
 import createAnalyticsStub from './helpers/segment-stub';
 import { createTracker } from '../src/index';
 
@@ -64,6 +65,58 @@ test('Page - router support', t => {
     fooLink.click();
 
 
+    ReactDOM.unmountComponentAtNode(node);
+  });
+
+  t.test('redux-router', st => {
+    st.plan(2);
+
+
+    window.analytics = createAnalyticsStub();
+    const node = document.createElement('div');
+    const tracker = createTracker();
+    const reducer = combineReducers({
+      router: routerStateReducer,
+    });
+    const store = compose(
+      reduxReactRouter({ createHistory }),
+      applyMiddleware(tracker)
+    )(createStore)(reducer);
+    const Component = () =>
+      <div>
+        <h1>Hello!</h1>
+        <ul>
+          <li><Link to="/foo">Foo</Link></li>
+          <li><Link to="/bar">Bar</Link></li>
+        </ul>
+      </div>;
+    const history = createHistory();
+    ReactDOM.render(
+      <Provider store={store}>
+        <div>
+          <ReduxRouter history={history}>
+            <Route path="/" component={Component}>
+              <IndexRoute component={Component}/>
+              <Route path="foo" component={Component}/>
+              <Route path="bar" component={Component}/>
+            </Route>
+          </ReduxRouter>
+        </div>
+      </Provider>,
+      node
+    );
+
+
+    const initialEvent = window.analytics[0] && window.analytics[0][0];
+    st.equal(initialEvent, 'page', 'triggers page event on load');
+
+    const fooLink = node.querySelector('a[href$="foo"]');
+    fooLink.click();
+    const fooLinkEvent = window.analytics[1] && window.analytics[1][0];
+    st.equal(fooLinkEvent, 'page', 'triggers page event on navigation');
+
+
+    window.analytics = null;
     ReactDOM.unmountComponentAtNode(node);
   });
 });
