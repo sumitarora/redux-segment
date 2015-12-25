@@ -18,9 +18,9 @@ test('Page - router support', t => {
     window.analytics = createAnalyticsStub();
     const node = document.createElement('div');
     const tracker = createTracker();
-    const reducer = combineReducers(Object.assign({}, {
+    const reducer = combineReducers({
       routing: routeReducer,
-    }));
+    });
     const store = compose(
       applyMiddleware(tracker)
     )(createStore)(reducer);
