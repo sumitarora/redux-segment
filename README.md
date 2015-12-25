@@ -11,6 +11,12 @@ npm install --save redux-segment
 <img src="./segment.gif">
 
 
+## Features
+
+- Out-of-the-box support for popular routers:
+  - [redux-simple-router](https://github.com/rackt/redux-simple-router): ^1.0.2
+
+
 ## Motivation
 
 Redux Segment middleware allows you to draw deep and rich analytics from
@@ -128,6 +134,7 @@ npm install --save redux-segment
 ## Usage
 
 **1. Create and apply the tracker**
+
 ```
 import { applyMiddleware, createStore, compose } from 'redux';
 import { reduxReactRouter } from 'redux-router'
@@ -153,6 +160,7 @@ _Note: Make sure to include the tracker *after* thunk or promise
 middleware so that it sees actual actions._
 
 **2. Copy the segment snippet into the header of your site**
+
 ```
 <head>
   <title>My amazing app</title>
