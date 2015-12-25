@@ -1,7 +1,10 @@
 # Redux Segment
 <a href="./.tag"><img src="./logo.png" width="48"></a> _Segment.io analytics integration for redux._  
 
-[![npm](https://img.shields.io/npm/v/npm.svg)](https://www.npmjs.com/package/redux-segment) [![Circle CI](https://circleci.com/gh/rangle/redux-segment.svg?style=svg)](https://circleci.com/gh/rangle/redux-segment)
+[![CircleCI](https://img.shields.io/circleci/project/rangle/redux-segment.svg)](https://circleci.com/gh/rangle/redux-segment)
+[![npm](https://img.shields.io/npm/v/npm.svg)](https://www.npmjs.com/package/redux-segment)
+[![GitHub
+license](https://img.shields.io/github/license/rangle/redux-segment.svg)](https://github.com/rangle/redux-segment/blob/master/LICENSE)
 
 ```
 npm install --save redux-segment
