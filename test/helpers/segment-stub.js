@@ -4,8 +4,8 @@
  * The fake method will use the `stub` as a queue and record the data "sent",
  * prefixed by the `method` name.
  */
-function stubMethod = (stub: Array, method: string) => () => {
-  const args = Array.prototype.slice.call(arguments).unshift(method);
+const stubMethod = (stub: Array, method: string) => (...args) => {
+  args.unshift(method);
 
   stub.push(args);
 
@@ -39,9 +39,9 @@ export default function createAnalyticsStub() {
     'on',
   ];
 
- return methods.reduce((stub, method) => {
-   stub[method] = stubMethod(stub, method);
+  return methods.reduce((stub, method) => {
+    stub[method] = stubMethod(stub, method);
 
-   return stub;
+    return stub;
   }, []);
 }
