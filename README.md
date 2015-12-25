@@ -17,7 +17,11 @@ npm install --save redux-segment
 ## Features
 
 - Out-of-the-box support for popular routers:
-  - [redux-simple-router](https://github.com/rackt/redux-simple-router): ^1.0.2
+  - [redux-simple-router](https://github.com/rackt/redux-simple-router)✝: ^1.0.2
+  - [redux-router](https://github.com/acdlite/redux-router): ^1.0.3
+
+
+✝ Recommended router. You can also trigger page views manually.
 
 
 ## Motivation
