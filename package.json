@@ -6,7 +6,7 @@
   "scripts": {
     "test": "browserify test/*-test.js -t babelify | tape-run --browser chrome",
     "test-dev": "npm test | tap-spec",
-    "test-ci": "npm test | tap-xunit --package='Rangle.ReduxSegment' > $CIRCLE_TEST_REPORTS/results.xml",
+    "test-ci": "npm test | tap-xunit > $CIRCLE_TEST_REPORTS/results.xml",
     "test-watch": "watch 'npm test' src/ test/"
   },
   "repository": {
