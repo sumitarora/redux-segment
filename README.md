@@ -17,7 +17,7 @@ npm install --save redux-segment
 ## Features
 
 - Out-of-the-box support for popular routers:
-  - [redux-simple-router](https://github.com/rackt/redux-simple-router)✝: ^1.0.2
+  - [redux-simple-router](https://github.com/rackt/redux-simple-router) ✝: ^1.0.2
   - [redux-router](https://github.com/acdlite/redux-router): ^1.0.3
 
 
@@ -53,10 +53,11 @@ export function addTodo(text) {
     },
     meta: {
       analytics: {
-        eventType: reduxSegment.TRACK,
-        eventName: types.ADD_TODO,
-        paths: ['payload.text'],  // It understands [Flux Standard Action](https://github.com/acdlite/redux-actions)
-                                  // so the 'payload' part is not required.
+        eventType: EventTypes.track,
+        eventPayload: {
+          name: types.ADD_TODO,
+          text,
+        },
       },
     },
   }
@@ -71,7 +72,7 @@ export function addTodo(text) {
     type: types.ADD_TODO,
     payload,
     meta: {
-      analytics: reduxSegment.TRACK,
+      analytics: EventTypes.track,
     },
   }
 }
@@ -137,9 +138,6 @@ marking each one._
 npm install --save redux-segment
 ```
 
-
-## Usage
-
 **1. Create and apply the tracker**
 
 ```
@@ -152,10 +150,10 @@ import api from '../middleware/api'
 import rootReducer from '../reducers'
 import { createTracker } from 'redux-segment';
 
-const tracker = createTracker();  // Create the tracker...
+const tracker = createTracker();                                   // Create the tracker...
 
 const finalCreateStore = compose(
-  applyMiddleware(thunk, api, tracker),  // and then apply it!
+  applyMiddleware(thunk, api, tracker),                            // and then apply it!
   reduxReactRouter({ routes, createHistory })
 )(createStore)
 
@@ -190,7 +188,80 @@ middleware so that it sees actual actions._
 </head>
 ```
 
-**3. You're done!**
+**3. You're done! You can now start specifying events at your heart's
+content.**
+
+## Usage
+
+### Spec API
+
+In Redux Segment, events are declared on the action they represent. For
+example:
+
+```
+import { EventTypes } from 'redux-segment';
+
+function buy(cart, subtotal, tax, total) {
+  return {
+    type: 'CHECKOUT',
+    payload: {
+      cart,
+      subtotal,
+      tax,
+      total,
+    },
+    meta: {
+      analytics: {
+        eventType: EventTypes.track,
+      },
+    },
+  };
+}
+
+// or the short form...
+
+function openCart() {
+  return {
+    type: 'OPEN_CART',
+    meta: {
+      analytics: EventTypes.track,
+    },
+  };
+}
+```
+
+Event specifications are attached the the `analytics` property of the
+action's `meta` key. When using the short-hand, required keys are
+inferred.
+
+**Common Properties:**
+
+*eventType (required)*: The type of event to emit. Each type represents
+some distinct semantic information about your customer.
+Available types:
+
+- `EventTypes.identify`: who is the customer?
+- `EventTypes.track`: what are they doing?
+- `EventTypes.page`: what web page are they on?
+- `EventTypes.screen`: what app screen are they on?
+- `EventTypes.group`: what account or organization are they part of?
+- `EventTypes.alias`: what was their past identity?
+
+See the [Segment Spec](https://segment.com/docs/spec/) for more details.
+
+*eventPayload*: The fields associated with the event. Each event has a
+few [common fields](https://segment.com/docs/spec/common/#structure).
+The rest are covered below, on a type-by-type basis.
+
+### Page
+
+> The page call lets you record whenever a user sees a page of your
+> website, along with any properties about the page.
+> [Spec: Page](https://segment.com/docs/spec/page/)
+
+**Type:**
+`EventTypes.page`
+
 
 
 ## License

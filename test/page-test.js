@@ -8,7 +8,7 @@ import createHistory from 'history/lib/createHashHistory';
 import { syncReduxAndRouter, routeReducer } from 'redux-simple-router';
 import { ReduxRouter, routerStateReducer, reduxReactRouter } from 'redux-router';
 import createAnalyticsStub from './helpers/segment-stub';
-import { createTracker } from '../src/index';
+import { createTracker, EventTypes } from '../src/index';
 
 
 test('Page - router support', t => {
@@ -121,3 +121,43 @@ test('Page - router support', t => {
   });
 });
 
+
+test('Page - spec', t => {
+  t.test('default', st => {
+    st.plan(2);
+
+
+    window.analytics = createAnalyticsStub();
+    const explicitAction = {
+      type: 'CHANGE_VIEW',
+      meta: {
+        analytics: {
+          eventType: EventTypes.page,
+        },
+      },
+    };
+    const implicitAction = {
+      type: 'CHANGE_VIEW',
+      meta: {
+        analytics: EventTypes.page,
+      },
+    };
+    const identity = val => val;
+    const tracker = createTracker();
+    const store = compose(
+      applyMiddleware(tracker)
+    )(createStore)(identity);
+
+
+    store.dispatch(explicitAction);
+    const defaultExplicitEvent = window.analytics[0] && window.analytics[0][0];
+    st.equal(defaultExplicitEvent, 'page', 'emits a page event on explicit actions');
+
+    store.dispatch(implicitAction);
+    const defaultImplicitEvent = window.analytics[1] && window.analytics[1][0];
+    st.equal(defaultImplicitEvent, 'page', 'emits a page event on implicit actions');
+
+
+    window.analytics = null;
+  });
+});
