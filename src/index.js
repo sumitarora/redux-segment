@@ -20,13 +20,26 @@ function extractFields(obj: Object, keys: Array) {
   return keys.map(key => obj[key]);
 }
 
+function validatePageFields(fields) {
+  if (fields.category && !fields.name) {
+    return new Error('missing name field for EventTypes.page');
+  }
+
+  return null;
+}
+
 function extractPageFields(fields) {
   // all fields are optional for page events
   if (!fields) {
     return [];
   }
 
-  const props = ['name'];
+  const err = validatePageFields(fields);
+  if (err) throw err;
+
+  const props = fields.category ?
+                [ 'category', 'name' ] :
+                [ 'name' ];
 
   return extractFields(fields, props);
 }

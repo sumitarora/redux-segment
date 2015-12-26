@@ -196,4 +196,58 @@ test('Page - spec', t => {
 
     window.analytics = null;
   });
+
+  t.test('category', st => {
+    st.plan(2);
+
+
+    window.analytics = createAnalyticsStub();
+    const PAGE_NAME = 'Home';
+    const CAT_NAME = 'Landing';
+    const action = {
+      type: 'CHANGE_VIEW',
+      to: 'home',
+      meta: {
+        analytics: {
+          eventType: EventTypes.page,
+          eventPayload: {
+            name: PAGE_NAME,
+            category: CAT_NAME,
+          },
+        },
+      },
+    };
+    const missingNameAction = {
+      type: 'CHANGE_VIEW',
+      to: 'home',
+      meta: {
+        analytics: {
+          eventType: EventTypes.page,
+          eventPayload: {
+            category: CAT_NAME,
+          },
+        },
+      },
+    };
+    const identity = val => val;
+    const tracker = createTracker();
+    const store = compose(
+      applyMiddleware(tracker)
+    )(createStore)(identity);
+
+
+    store.dispatch(action);
+    const event = [
+      window.analytics[0] && window.analytics[0][0],
+      window.analytics[0] && window.analytics[0][1],
+      window.analytics[0] && window.analytics[0][2],
+    ];
+    st.deepEqual(event, ['page', CAT_NAME, PAGE_NAME], 'passes along the category of the page');
+
+    const invalidAction = () => store.dispatch(missingNameAction);
+    st.throws(invalidAction, /missing name/, 'throws error when name prop is missing');
+
+
+    window.analytics = null;
+  });
 });

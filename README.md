@@ -266,6 +266,10 @@ The rest are covered below, on a type-by-type basis.
 
 *name \<string\>* – The name of the page (e.g. 'Home').
 
+*category \<string\>* – The category of the page. This used where page
+names live under a broader category (e.g. 'Products').  
+<u>Note: If you specify a category, you must also provide a name.</u>
+
 
 
 ## License
