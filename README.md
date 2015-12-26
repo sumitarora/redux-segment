@@ -266,10 +266,31 @@ The rest are covered below, on a type-by-type basis.
 
 *name \<string\>* – The name of the page (e.g. 'Home').
 
-*category \<string\>* – The category of the page. This used where page
+*category \<string\>* – The category of the page. This is used where page
 names live under a broader category (e.g. 'Products').  
 <u>Note: If you specify a category, you must also provide a name.</u>
 
+*properties \<Object\>* – A map of page properties. The following
+properties are available by default:
+
+- `url`
+- `title`
+- `referrer`
+- `path`
+
+If not explicitly specified, the above properties are implied. You can
+also provide your own custom properties, if you want.
+
+*options \<Object\>* – A map of [common
+fields](https://segment.com/docs/spec/common/#structure). This can be
+used to selectively enable or disable certain intergrations or set
+`anonymousId` or `userId` on an ad-hoc basis. More routinely, it is
+used to "backdate" events by setting the `timestamp` key to when the
+event actually occured (as opposed to when the action was dispatched).
+This is useful for cases where an action may be triggered after a
+significant wait (e.g. setTimeout, callback, animations, etc...) and you
+want to capture the time of human action instead of, say, the time at
+which that action was confirmed or some data was persisted.
 
 
 ## License

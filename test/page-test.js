@@ -250,4 +250,92 @@ test('Page - spec', t => {
 
     window.analytics = null;
   });
+
+  t.test('properties', st => {
+    st.plan(3);
+
+
+    window.analytics = createAnalyticsStub();
+    const PAGE_NAME = 'Home';
+    const CAT_NAME = 'Landing';
+    const TITLE_NAME = 'Homepage';
+    const action = {
+      type: 'CHANGE_VIEW',
+      to: 'home',
+      meta: {
+        analytics: {
+          eventType: EventTypes.page,
+          eventPayload: {
+            name: PAGE_NAME,
+            category: CAT_NAME,
+            properties: {
+              title: TITLE_NAME,
+            },
+          },
+        },
+      },
+    };
+    const noCategoryAction = {
+      type: 'CHANGE_VIEW',
+      to: 'home',
+      meta: {
+        analytics: {
+          eventType: EventTypes.page,
+          eventPayload: {
+            name: PAGE_NAME,
+            properties: {
+              title: TITLE_NAME,
+            },
+          },
+        },
+      },
+    };
+    const justPropertiesAction = {
+      type: 'CHANGE_VIEW',
+      to: 'home',
+      meta: {
+        analytics: {
+          eventType: EventTypes.page,
+          eventPayload: {
+            properties: {
+              title: TITLE_NAME,
+            },
+          },
+        },
+      },
+    };
+    const identity = val => val;
+    const tracker = createTracker();
+    const store = compose(
+      applyMiddleware(tracker)
+    )(createStore)(identity);
+
+
+    store.dispatch(action);
+    const event = [
+      window.analytics[0] && window.analytics[0][0],
+      window.analytics[0] && window.analytics[0][1],
+      window.analytics[0] && window.analytics[0][2],
+      window.analytics[0] && window.analytics[0][3],
+    ];
+    st.deepEqual(event, ['page', CAT_NAME, PAGE_NAME, { title: TITLE_NAME }], 'passes along the properties of the page when category is present');
+
+    store.dispatch(noCategoryAction);
+    const noCatEvent = [
+      window.analytics[1] && window.analytics[1][0],
+      window.analytics[1] && window.analytics[1][1],
+      window.analytics[1] && window.analytics[1][2],
+    ];
+    st.deepEqual(noCatEvent, ['page', PAGE_NAME, { title: TITLE_NAME }], 'passes along the properties of the page when category is not present');
+
+    store.dispatch(justPropertiesAction);
+    const justPropertiesEvent = [
+      window.analytics[2] && window.analytics[2][0],
+      window.analytics[2] && window.analytics[2][1],
+    ];
+    st.deepEqual(justPropertiesEvent, ['page', { title: TITLE_NAME }], 'passes along the properties of the page when category and name are not present');
+
+
+    window.analytics = null;
+  });
 });
