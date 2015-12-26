@@ -160,4 +160,40 @@ test('Page - spec', t => {
 
     window.analytics = null;
   });
+
+  t.test('name', st => {
+    st.plan(1);
+
+
+    window.analytics = createAnalyticsStub();
+    const PAGE_NAME = 'Home';
+    const action = {
+      type: 'CHANGE_VIEW',
+      to: 'home',
+      meta: {
+        analytics: {
+          eventType: EventTypes.page,
+          eventPayload: {
+            name: PAGE_NAME,
+          },
+        },
+      },
+    };
+    const identity = val => val;
+    const tracker = createTracker();
+    const store = compose(
+      applyMiddleware(tracker)
+    )(createStore)(identity);
+
+
+    store.dispatch(action);
+    const event = [
+      window.analytics[0] && window.analytics[0][0],
+      window.analytics[0] && window.analytics[0][1],
+    ];
+    st.deepEqual(event, ['page', PAGE_NAME], 'passes along the name of the page');
+
+
+    window.analytics = null;
+  });
 });

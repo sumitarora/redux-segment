@@ -1,5 +1,5 @@
-function emit(type: string) {
-  window.analytics && window.analytics[type]();
+function emit(type: string, fields: Array) {
+  window.analytics && window.analytics[type](...fields);
 }
 
 const EventTypes = {
@@ -16,6 +16,29 @@ function handleAction(next: Function, action: Object) {
   return handleActionType(next, action);
 }
 
+function extractFields(obj: Object, keys: Array) {
+  return keys.map(key => obj[key]);
+}
+
+function extractPageFields(fields) {
+  // all fields are optional for page events
+  if (!fields) {
+    return [];
+  }
+
+  const props = ['name'];
+
+  return extractFields(fields, props);
+}
+
+function getFields(type: string, fields: Object) {
+  const typeFieldHandlers = {
+    [EventTypes.page]: extractPageFields,
+  };
+
+  return typeFieldHandlers[type](fields);
+}
+
 function getEventType(spec) {
   if (typeof spec === 'string') {
     return spec;
@@ -27,9 +50,9 @@ function getEventType(spec) {
 function handleSpec(next: Function, action: Object) {
   const spec = action.meta.analytics;
   const type = getEventType(spec);
+  const fields = getFields(type, spec.eventPayload);
 
-
-  emit(type);
+  emit(type, fields);
 
   return next(action);
 }

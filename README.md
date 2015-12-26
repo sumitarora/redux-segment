@@ -236,7 +236,7 @@ inferred.
 
 **Common Properties:**
 
-*eventType (required)*: The type of event to emit. Each type represents
+*eventType \<string\>* (required) – The type of event to emit. Each type represents
 some distinct semantic information about your customer.
 Available types:
 
@@ -249,7 +249,7 @@ Available types:
 
 See the [Segment Spec](https://segment.com/docs/spec/) for more details.
 
-*eventPayload*: The fields associated with the event. Each event has a
+*eventPayload \<Object\>* – The fields associated with the event. Each event has a
 few [common fields](https://segment.com/docs/spec/common/#structure).
 The rest are covered below, on a type-by-type basis.
 
@@ -261,6 +261,10 @@ The rest are covered below, on a type-by-type basis.
 
 **Type:**
 `EventTypes.page`
+
+**Payload Fields:**
+
+*name \<string\>* – The name of the page (e.g. 'Home').
 
 
 
