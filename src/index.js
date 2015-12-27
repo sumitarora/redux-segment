@@ -17,7 +17,7 @@ function handleAction(next: Function, action: Object) {
 }
 
 function extractFields(obj: Object, keys: Array) {
-  return keys.map(key => obj[key]);
+  return keys.map(key => key === 'properties' ? obj[key] || {} : obj[key]);
 }
 
 function validatePageFields(fields: Object) {
@@ -29,10 +29,10 @@ function validatePageFields(fields: Object) {
 }
 
 function getPageProperties(fields: Object) {
-  if (fields.category) return [ 'category', 'name', 'properties' ];
-  if (!fields.name) return [ 'properties' ];
+  if (fields.category) return [ 'category', 'name', 'properties', 'options' ];
+  if (!fields.name) return [ 'properties', 'options' ];
 
-  return [ 'name', 'properties' ];
+  return [ 'name', 'properties', 'options' ];
 }
 
 function extractPageFields(fields) {
