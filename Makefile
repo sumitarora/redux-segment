@@ -16,6 +16,7 @@ WATCH = $(BIN)/watch
 #
 
 BUILD_ENTRY = src/index.js
+SRC = $(wildcard src/**/*.js)
 TESTS = $(wildcard test/*-test.js)
 
 
@@ -46,7 +47,7 @@ clean:
 # Build.
 #
 
-redux-segment.js:
+redux-segment.js: # node_modules $(SRC) package.json <-- Disabled due to CircleCI issue (see: https://circleci.com/gh/rangle/redux-segment/33)
 	@$(BROWSERIFY) -e $(BUILD_ENTRY) $(BROWSERIFY_ARGS) -s 'redux-segment' -o $@
 
 build: redux-segment.js
