@@ -1,5 +1,3 @@
 test:
   override:
-    - npm test | tee results | ./node_modules/.bin/tap-spec
-    - mkdir -p $CIRCLE_TEST_REPORTS/TAP
-    - cat results | ./node_modules/.bin/tap-xunit > $CIRCLE_TEST_REPORTS/TAP/results.xml
+    - make test-ci
