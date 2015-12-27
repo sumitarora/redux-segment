@@ -62,13 +62,13 @@ test: node_modules
 .PHONY: test
 
 test-dev: node_modules
-	@$ $(MAKE) test | $(TAP-SPEC)
+	@$(MAKE) test | $(TAP-SPEC)
 .PHONY: test-dev
 .DEFAULT_GOAL = test-dev
 
 test-ci: node_modules
-	@$ $(MAKE) test | tee results | $(TAP-SPEC) && \
+	@$(MAKE) test | tee results | $(TAP-SPEC) && \
 		mkdir -p $CIRCLE_TEST_REPORTS/TAP && \
-		cat results | $(TAP-XUNIT) > $CIRCLE_TEST_REPORTS/TAP/results.xml
+		cat results | $(TAP-XUNIT) > $(CIRCLE_TEST_REPORTS)/TAP/results.xml
 .PHONY: test-ci
 
