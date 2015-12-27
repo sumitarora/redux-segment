@@ -2,11 +2,10 @@
   "name": "redux-segment",
   "version": "0.1.1",
   "description": "Segment.io analytics integration for redux.",
-  "main": "build/segment.js",
+  "main": "redux-segment.js",
   "scripts": {
-    "test": "browserify test/*-test.js -t babelify | tape-run --browser chrome",
-    "test-dev": "npm test | tap-spec",
-    "test-watch": "watch 'npm test' src/ test/"
+    "prepublish": "make build",
+    "test": "make test"
   },
   "repository": {
     "type": "git",
