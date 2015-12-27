@@ -46,8 +46,8 @@ clean:
 # Build.
 #
 
-redux-segment.js: node_modules
-	$(BROWSERIFY) -e $(BUILD_ENTRY) $(BROWSERIFY_ARGS) -s 'redux-segment' -o $@
+redux-segment.js:
+	@$(BROWSERIFY) -e $(BUILD_ENTRY) $(BROWSERIFY_ARGS) -s 'redux-segment' -o $@
 
 build: redux-segment.js
 .PHONY: build
