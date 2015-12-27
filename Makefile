@@ -68,7 +68,7 @@ test-dev: node_modules
 
 test-ci: node_modules
 	@$(MAKE) test | tee results | $(TAP-SPEC) && \
-		mkdir -p $CIRCLE_TEST_REPORTS/TAP && \
+		mkdir -p $(CIRCLE_TEST_REPORTS)/TAP && \
 		cat results | $(TAP-XUNIT) > $(CIRCLE_TEST_REPORTS)/TAP/results.xml
 .PHONY: test-ci
 
