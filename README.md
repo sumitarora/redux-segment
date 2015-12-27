@@ -271,12 +271,14 @@ names live under a broader category (e.g. 'Products').
 <u>Note: If you specify a category, you must also provide a name.</u>
 
 *properties \<Object\>* – A map of page properties. The following
-properties are available by default:
+properties are reserved and have standardized meaning:
 
 - `url`
 - `title`
 - `referrer`
 - `path`
+- `name`
+- `search`
 
 If not explicitly specified, the above properties are implied. You can
 also provide your own custom properties, if you want.
