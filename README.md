@@ -293,6 +293,13 @@ want to capture the time of human action instead of, say, the time at
 which that action was confirmed or some data was persisted.
 
 
+## Support
+
+We're always around to help. If you run into any issues, want advice or
+simply have a question, please [open an
+issue](https://github.com/rangle/redux-segment/issues/new).
+
+
 ## License
 
 Code and documentation copyright 2015-2016 Rangle.io. Code released
