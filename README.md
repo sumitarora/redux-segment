@@ -17,7 +17,7 @@ npm install --save redux-segment
 ## Features
 
 - Out-of-the-box support for popular routers:
-  - [redux-simple-router](https://github.com/rackt/redux-simple-router)✝: ^1.0.2
+  - [redux-simple-router](https://github.com/rackt/redux-simple-router) ✝: ^1.0.2
   - [redux-router](https://github.com/acdlite/redux-router): ^1.0.3
 
 
@@ -53,10 +53,11 @@ export function addTodo(text) {
     },
     meta: {
       analytics: {
-        eventType: reduxSegment.TRACK,
-        eventName: types.ADD_TODO,
-        paths: ['payload.text'],  // It understands [Flux Standard Action](https://github.com/acdlite/redux-actions)
-                                  // so the 'payload' part is not required.
+        eventType: EventTypes.track,
+        eventPayload: {
+          name: types.ADD_TODO,
+          text,
+        },
       },
     },
   }
@@ -71,7 +72,7 @@ export function addTodo(text) {
     type: types.ADD_TODO,
     payload,
     meta: {
-      analytics: reduxSegment.TRACK,
+      analytics: EventTypes.track,
     },
   }
 }
@@ -137,9 +138,6 @@ marking each one._
 npm install --save redux-segment
 ```
 
-
-## Usage
-
 **1. Create and apply the tracker**
 
 ```
@@ -152,10 +150,10 @@ import api from '../middleware/api'
 import rootReducer from '../reducers'
 import { createTracker } from 'redux-segment';
 
-const tracker = createTracker();  // Create the tracker...
+const tracker = createTracker();                                   // Create the tracker...
 
 const finalCreateStore = compose(
-  applyMiddleware(thunk, api, tracker),  // and then apply it!
+  applyMiddleware(thunk, api, tracker),                            // and then apply it!
   reduxReactRouter({ routes, createHistory })
 )(createStore)
 
@@ -190,7 +188,118 @@ middleware so that it sees actual actions._
 </head>
 ```
 
-**3. You're done!**
+**3. You're done! You can now start specifying events at your heart's
+content.**
+
+## Usage
+
+### Spec API
+
+In Redux Segment, events are declared on the action they represent. For
+example:
+
+```
+import { EventTypes } from 'redux-segment';
+
+function buy(cart, subtotal, tax, total) {
+  return {
+    type: 'CHECKOUT',
+    payload: {
+      cart,
+      subtotal,
+      tax,
+      total,
+    },
+    meta: {
+      analytics: {
+        eventType: EventTypes.track,
+      },
+    },
+  };
+}
+
+// or the short form...
+
+function openCart() {
+  return {
+    type: 'OPEN_CART',
+    meta: {
+      analytics: EventTypes.track,
+    },
+  };
+}
+```
+
+Event specifications are attached the the `analytics` property of the
+action's `meta` key. When using the short-hand, required keys are
+inferred.
+
+**Common Properties:**
+
+*eventType \<string\>* (required) – The type of event to emit. Each type represents
+some distinct semantic information about your customer.
+Available types:
+
+- `EventTypes.identify`: who is the customer?
+- `EventTypes.track`: what are they doing?
+- `EventTypes.page`: what web page are they on?
+- `EventTypes.screen`: what app screen are they on?
+- `EventTypes.group`: what account or organization are they part of?
+- `EventTypes.alias`: what was their past identity?
+
+See the [Segment Spec](https://segment.com/docs/spec/) for more details.
+
+*eventPayload \<Object\>* – The fields associated with the event. Each event has a
+few [common fields](https://segment.com/docs/spec/common/#structure).
+The rest are covered below, on a type-by-type basis.
+
+### Page
+
+> The page call lets you record whenever a user sees a page of your
+> website, along with any properties about the page.
+> [Spec: Page](https://segment.com/docs/spec/page/)
+
+**Type:**
+`EventTypes.page`
+
+**Payload Fields:**
+
+*name \<string\>* – The name of the page (e.g. 'Home').
+
+*category \<string\>* – The category of the page. This is used where page
+names live under a broader category (e.g. 'Products').  
+<u>Note: If you specify a category, you must also provide a name.</u>
+
+*properties \<Object\>* – A map of page properties. The following
+properties are reserved and have standardized meaning:
+
+- `url`
+- `title`
+- `referrer`
+- `path`
+- `name`
+- `search`
+
+If not explicitly specified, the above properties are implied. You can
+also provide your own custom properties, if you want.
+
+*options \<Object\>* – A map of [common
+fields](https://segment.com/docs/spec/common/#structure). This can be
+used to selectively enable or disable certain intergrations or set
+`anonymousId` or `userId` on an ad-hoc basis. More routinely, it is
+used to "backdate" events by setting the `timestamp` key to when the
+event actually occured (as opposed to when the action was dispatched).
+This is useful for cases where an action may be triggered after a
+significant wait (e.g. setTimeout, callback, animations, etc...) and you
+want to capture the time of human action instead of, say, the time at
+which that action was confirmed or some data was persisted.
+
+
+## Support
+
+We're always around to help. If you run into any issues, want advice or
+simply have a question, please [open an
+issue](https://github.com/rangle/redux-segment/issues/new).
 
 
 ## License
