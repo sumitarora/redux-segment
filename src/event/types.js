@@ -1,5 +1,5 @@
 const EventTypes = {
-  page,
+  page: 'page',
 };
 
 
