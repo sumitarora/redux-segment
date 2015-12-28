@@ -273,6 +273,32 @@ without worry.
 visitors, an `anonymousId` will be automatically generated so this field
 can be omitted.
 
+*traits \<Object\>* – A map of attributes about the user. These are
+completely at your discretion but common ones include email and name. If
+you don't provide a userId, the traits will be attributed to the
+currently identified users (whether anonymous or not). The following
+traits are reserved and have standardized meaning:
+
+- `address`
+- `age`
+- `avatar`
+- `birthday`
+- `createdAt`
+- `description`
+- `email`
+- `firstName`
+- `gender`
+- `id`
+- `lastName`
+- `name`
+- `phone`
+- `title`
+- `username`
+- `website`
+
+Traits are also useful for such things as marking users as having seen a
+particular A/B test variation.
+
 
 ### Page
 

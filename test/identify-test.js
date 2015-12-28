@@ -81,4 +81,68 @@ test('Identify - spec', t => {
 
     window.analytics = null;
   });
+
+  t.test('traits', st => {
+    st.plan(2);
+
+
+    window.analytics = createAnalyticsStub();
+    const USER_ID = '507f191e810c19729de860ea';
+    const EMAIL = 'test@example.org';
+    const PASSWORD = 'supersecretssh!';
+    const TRAITS = {
+      email: EMAIL,
+    };
+    const action = {
+      type: 'SIGN_IN',
+      email: EMAIL,
+      password: PASSWORD,
+      meta: {
+        analytics: {
+          eventType: EventTypes.identify,
+          eventPayload: {
+            userId: USER_ID,
+            traits: TRAITS,
+          },
+        },
+      },
+    };
+    const noUserIdAction = {
+      type: 'SIGN_IN',
+      email: EMAIL,
+      password: PASSWORD,
+      meta: {
+        analytics: {
+          eventType: EventTypes.identify,
+          eventPayload: {
+            traits: TRAITS,
+          },
+        },
+      },
+    };
+    const identity = val => val;
+    const tracker = createTracker();
+    const store = compose(
+      applyMiddleware(tracker)
+    )(createStore)(identity);
+
+
+    store.dispatch(action);
+    const event = [
+      window.analytics[0] && window.analytics[0][0],
+      window.analytics[0] && window.analytics[0][1],
+      window.analytics[0] && window.analytics[0][2],
+    ];
+    st.deepEqual(event, ['identify', USER_ID, TRAITS], 'passes along the traits of the user');
+
+    store.dispatch(noUserIdAction);
+    const noUserIdEvent = [
+      window.analytics[1] && window.analytics[1][0],
+      window.analytics[1] && window.analytics[1][1],
+    ];
+    st.deepEqual(noUserIdEvent, ['identify', TRAITS], 'passes along the traits of the user when no userId is provided');
+
+
+    window.analytics = null;
+  });
 });

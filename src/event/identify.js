@@ -1,5 +1,7 @@
-function getIdentifyProperties() {
-  return [ 'userId' ];
+function getIdentifyProperties(fields: Object) {
+  if (!fields.userId) return [ 'traits' ];
+
+  return [ 'userId', 'traits' ];
 }
 
 function extractFields(obj: Object, keys: Array) {
