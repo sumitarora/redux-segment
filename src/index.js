@@ -1,5 +1,6 @@
 import EventTypes from './event/types';
 import { extractPageFields } from './event/page';
+import { extractIdentifyFields } from './event/identify';
 
 
 function emit(type: string, fields: Array) {
@@ -18,6 +19,7 @@ function handleAction(next: Function, action: Object) {
 
 function getFields(type: string, fields: Object) {
   const typeFieldHandlers = {
+    [EventTypes.identify]: extractIdentifyFields,
     [EventTypes.page]: extractPageFields,
   };
 
@@ -50,10 +52,11 @@ function handleActionType(next: Function, action: Object) {
     case '@@reduxReactRouter/routerDidChange':
     case '@@reduxReactRouter/replaceRoutes':
       emit(EventTypes.page);
-      return next(action);
+      break;
     default:
-      return next(action);
   }
+
+  return next(action);
 }
 
 

@@ -253,6 +253,21 @@ See the [Segment Spec](https://segment.com/docs/spec/) for more details.
 few [common fields](https://segment.com/docs/spec/common/#structure).
 The rest are covered below, on a type-by-type basis.
 
+
+### Identity
+
+> The identify call ties a customer and their actions to a recognizable
+> ID and traits like their email, name, etc.
+> [Spec: Identity](https://segment.com/docs/spec/identify/)
+
+**Note:** You don't need an `identity` action for anonymous visits. It
+will be inferred for you so you can ahead and use `page` or `track`
+without worry.
+
+**Type:**
+`EventTypes.identity`
+
+
 ### Page
 
 > The page call lets you record whenever a user sees a page of your

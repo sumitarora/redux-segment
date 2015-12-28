@@ -1,5 +1,6 @@
 const EventTypes = {
   page: 'page',
+  identify: 'identify',
 };
 
 
