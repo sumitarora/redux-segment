@@ -17,7 +17,7 @@ function extractFields(obj: Object, keys: Array) {
   return keys.map(key => key === 'properties' ? obj[key] || {} : obj[key]);
 }
 
-function extractPageFields(fields) {
+function extractPageFields(fields: Object) {
   // all fields are optional for page events
   if (!fields) {
     return [];
@@ -33,7 +33,5 @@ function extractPageFields(fields) {
 
 
 export {
-  validatePageFields,
-  getPageProperties,
   extractPageFields,
 };
