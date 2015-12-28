@@ -254,18 +254,24 @@ few [common fields](https://segment.com/docs/spec/common/#structure).
 The rest are covered below, on a type-by-type basis.
 
 
-### Identity
+### Identify
 
 > The identify call ties a customer and their actions to a recognizable
 > ID and traits like their email, name, etc.
-> [Spec: Identity](https://segment.com/docs/spec/identify/)
+> [Spec: Identify](https://segment.com/docs/spec/identify/)
 
-**Note:** You don't need an `identity` action for anonymous visits. It
+**Note:** You don't need an `identify` action for anonymous visits. It
 will be inferred for you so you can ahead and use `page` or `track`
 without worry.
 
 **Type:**
-`EventTypes.identity`
+`EventTypes.identify`
+
+**Payload Fields:**
+
+*userId \<string\>* – The database ID of the user. For anonymous
+visitors, an `anonymousId` will be automatically generated so this field
+can be omitted.
 
 
 ### Page

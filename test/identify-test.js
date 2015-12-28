@@ -33,11 +33,50 @@ test('Identify - spec', t => {
 
     store.dispatch(explicitAction);
     const defaultExplicitEvent = window.analytics[0] && window.analytics[0][0];
-    st.equal(defaultExplicitEvent, 'identify', 'emits an event on explicit actions');
+    st.equal(defaultExplicitEvent, 'identify', 'emits an identify event on explicit actions');
 
     store.dispatch(implicitAction);
     const defaultImplicitEvent = window.analytics[1] && window.analytics[1][0];
-    st.equal(defaultImplicitEvent, 'identify', 'emits a page event on implicit actions');
+    st.equal(defaultImplicitEvent, 'identify', 'emits an identify event on implicit actions');
+
+
+    window.analytics = null;
+  });
+
+  t.test('userId', st => {
+    st.plan(1);
+
+
+    window.analytics = createAnalyticsStub();
+    const USER_ID = '507f191e810c19729de860ea';
+    const EMAIL = 'test@example.org';
+    const PASSWORD = 'supersecretssh!';
+    const action = {
+      type: 'SIGN_IN',
+      email: EMAIL,
+      password: PASSWORD,
+      meta: {
+        analytics: {
+          eventType: EventTypes.identify,
+          eventPayload: {
+            userId: USER_ID,
+          },
+        },
+      },
+    };
+    const identity = val => val;
+    const tracker = createTracker();
+    const store = compose(
+      applyMiddleware(tracker)
+    )(createStore)(identity);
+
+
+    store.dispatch(action);
+    const event = [
+      window.analytics[0] && window.analytics[0][0],
+      window.analytics[0] && window.analytics[0][1],
+    ];
+    st.deepEqual(event, ['identify', USER_ID], 'passes along the userId of the user');
 
 
     window.analytics = null;
