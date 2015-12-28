@@ -253,6 +253,58 @@ See the [Segment Spec](https://segment.com/docs/spec/) for more details.
 few [common fields](https://segment.com/docs/spec/common/#structure).
 The rest are covered below, on a type-by-type basis.
 
+
+### Identify
+
+> The identify call ties a customer and their actions to a recognizable
+> ID and traits like their email, name, etc.
+> [Spec: Identify](https://segment.com/docs/spec/identify/)
+
+**Note:** You don't need an `identify` action for anonymous visits. It
+will be inferred for you so you can ahead and use `page` or `track`
+without worry.
+
+**Type:**
+`EventTypes.identify`
+
+**Payload Fields:**
+
+*userId \<string\>* – The database ID of the user. For anonymous
+visitors, an `anonymousId` will be automatically generated so this field
+can be omitted.
+
+*traits \<Object\>* – A map of attributes about the user. These are
+completely at your discretion but common ones include email and name. If
+you don't provide a userId, the traits will be attributed to the
+currently identified users (whether anonymous or not). The following
+traits are reserved and have standardized meaning:
+
+- `address`
+- `age`
+- `avatar`
+- `birthday`
+- `createdAt`
+- `description`
+- `email`
+- `firstName`
+- `gender`
+- `id`
+- `lastName`
+- `name`
+- `phone`
+- `title`
+- `username`
+- `website`
+
+Traits are also useful for such things as marking users as having seen a
+particular A/B test variation.
+
+*options \<Object\>* – A map of [common
+fields](https://segment.com/docs/spec/common/#structure). This can be
+used to selectively enable or disable certain intergrations or set
+`anonymousId` or `userId` on an ad-hoc basis.
+
+
 ### Page
 
 > The page call lets you record whenever a user sees a page of your
