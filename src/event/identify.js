@@ -1,11 +1,11 @@
 function getIdentifyProperties(fields: Object) {
-  if (!fields.userId) return [ 'traits' ];
+  if (!fields.userId) return [ 'traits', 'options' ];
 
-  return [ 'userId', 'traits' ];
+  return [ 'userId', 'traits', 'options' ];
 }
 
 function extractFields(obj: Object, keys: Array) {
-  return keys.map(key => obj[key]);
+  return keys.map(key => key === 'traits' ? obj[key] || {} : obj[key]);
 }
 
 function extractIdentifyFields(fields: Object) {

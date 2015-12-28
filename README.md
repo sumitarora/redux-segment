@@ -299,6 +299,11 @@ traits are reserved and have standardized meaning:
 Traits are also useful for such things as marking users as having seen a
 particular A/B test variation.
 
+*options \<Object\>* – A map of [common
+fields](https://segment.com/docs/spec/common/#structure). This can be
+used to selectively enable or disable certain intergrations or set
+`anonymousId` or `userId` on an ad-hoc basis.
+
 
 ### Page
 
