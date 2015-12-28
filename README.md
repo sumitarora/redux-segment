@@ -347,6 +347,18 @@ want to capture the time of human action instead of, say, the time at
 which that action was confirmed or some data was persisted.
 
 
+### Track
+
+> The track call is how you record any actions your users perform,
+> along with any properties that describe the action.
+> [Spec: Track](https://segment.com/docs/spec/track/)
+
+**Type:**
+`EventTypes.track`
+
+**Payload Fields:**
+
+
 ## Support
 
 We're always around to help. If you run into any issues, want advice or
