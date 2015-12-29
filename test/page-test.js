@@ -353,7 +353,7 @@ test('Page - spec', t => {
     const OPTIONS = {
       'All': false,
       'Mixpanel': true,
-      'KISSmetrics': true
+      'KISSmetrics': true,
     };
     const action = {
       type: 'CHANGE_VIEW',
