@@ -511,6 +511,11 @@ user.
 assumed to be the currently identified user’s ID (in the case of
 anonymous visitors, this is the auto-generated `anonymousId`).
 
+*options \<Object\>* – A map of [common
+fields](https://segment.com/docs/spec/common/#structure). This can be
+used to selectively enable or disable certain integrations or set
+`anonymousId` or `userId` on an ad-hoc basis.
+
 
 ## Support
 

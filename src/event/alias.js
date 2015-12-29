@@ -1,5 +1,7 @@
-function getAliasProperties() {
-  return [ 'userId', 'previousId' ];
+function getAliasProperties(fields: Object) {
+  if (!fields.previousId) return [ 'userId', 'options' ];
+
+  return [ 'userId', 'previousId', 'options' ];
 }
 
 function validateAliasFields(fields: Object) {

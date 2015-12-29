@@ -218,7 +218,7 @@ test('Identify - spec', t => {
       window.analytics[0] && window.analytics[0][2],
       window.analytics[0] && window.analytics[0][3],
     ];
-    st.deepEqual(event, ['identify', USER_ID, TRAITS, OPTIONS], 'passes along the options of the user');
+    st.deepEqual(event, ['identify', USER_ID, TRAITS, OPTIONS], 'passes along the options of the identify event');
 
     store.dispatch(noUserIdAction);
     const noUserIdEvent = [
@@ -226,7 +226,7 @@ test('Identify - spec', t => {
       window.analytics[1] && window.analytics[1][1],
       window.analytics[1] && window.analytics[1][2],
     ];
-    st.deepEqual(noUserIdEvent, ['identify', TRAITS, OPTIONS], 'passes along the options of the user when no userId is provided');
+    st.deepEqual(noUserIdEvent, ['identify', TRAITS, OPTIONS], 'passes along the options of the identify event when no userId is provided');
 
     store.dispatch(justOptionsAction);
     const justOptionsEvent = [
