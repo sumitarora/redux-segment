@@ -424,57 +424,57 @@ help provide additional context later when analyzing the events, and in
 doing so, provide a more complete picture of what your users are doing.
 The following properties are reserved and have standardized meaning:
 
-- `name` <string> (reserved for future use)
-- `revenue` <number>
-- `currency` <string>
-- `value` <number> (useful for events with intrinsic, but not monetary,
+- `name` \<string\> (reserved for future use)
+- `revenue` \<number\>
+- `currency` \<string\>
+- `value` \<number\> (useful for events with intrinsic, but not monetary,
   value)
 
 <u>[A/B Testing Events](https://segment.com/docs/spec/ab-testing)</u>
 
 `Experiment Viewed`
 
-- `experiment_id` <string>
-- `experiment_name` <string>
-- `variation_id` <string>
-- `variation_name` <string>
+- `experiment_id` \<string\>
+- `experiment_name` \<string\>
+- `variation_id` \<string\>
+- `variation_name` \<string\>
 
 <u>[Ecommerce Events](https://segment.com/docs/spec/ecommerce)</u>
 
 `Viewed Product Category`
 
-- `category` <string>
+- `category` \<string>
 
 `Viewed Product`
 
-- `id`\* <string>
-- `sku`\* <string>
-- `name` <string>
-- `price` <string>
-- `category` <string>
+- `id`\* \<string\>
+- `sku`\* \<string\>
+- `name` \<string\>
+- `price` \<string\>
+- `category` \<string\>
 
 * `id` and `sku` don't have to be different, but they can.
 
 `Added Product` / `Removed Product`
 
-- `id` <string>
-- `sku` <string>
-- `name` <string>
-- `price` <string>
-- `quantity` <string>
-- `category` <string>
+- `id` \<string\>
+- `sku` \<string\>
+- `name` \<string\>
+- `price` \<string\>
+- `quantity` \<string\>
+- `category` \<string\>
 
 `Completed Order`
 
-- `orderId` <string>
-- `total` <number>
-- `revenue` <number>
-- `shipping` <number>
-- `tax` <number>
-- `discount` <number>
-- `coupon` <string>
-- `currency` <string>
-- `products` <Array>
+- `orderId` \<string\>
+- `total` \<number\>
+- `revenue` \<number\>
+- `shipping` \<number\>
+- `tax` \<number\>
+- `discount` \<number\>
+- `coupon` \<string\>
+- `currency` \<string\>
+- `products` \<Array\>
 
 Be sure to include all `products` in the cart as event properties, with the
 same properties as listed above (`id`, `sku`, `name`, `price`,
@@ -538,18 +538,18 @@ associated with the (identified or anonymous) user.
 completely at your discretion but common ones include employees and
 website. The following traits are reserved and have standardized meaning:
 
-- `address` <Object>
-- `avatar` <string>
-- `createdAt` <Date>
-- `description` <string>
-- `email` <string>
-- `employees` <string>
-- `id` <string>
-- `industry` <string>
-- `name` <string>
-- `phone` <string>
-- `website` <string>  
-  
+- `address` \<Object\>
+- `avatar` \<string\>
+- `createdAt` \<Date\>
+- `description` \<string\>
+- `email` \<string\>
+- `employees` \<string\>
+- `id` \<string\>
+- `industry` \<string\>
+- `name` \<string\>
+- `phone` \<string\>
+- `website` \<string\>
+
 *options \<Object\>* – A map of [common
 fields](https://segment.com/docs/spec/common/#structure). This can be
 used to selectively enable or disable certain integrations or set
