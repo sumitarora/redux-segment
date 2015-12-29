@@ -499,6 +499,15 @@ integrations (e.g.
 [Trak](https://segment.com/docs/integrations/trak.io/#alias) and
 [Vero](https://segment.com/docs/integrations/vero#alias).**
 
+**Type:**
+`EventTypes.alias`
+
+**Payload Fields:**
+
+*userId \<string\>* (required) – The new database ID you want associated with the
+user.
+
+
 
 ## Support
 
