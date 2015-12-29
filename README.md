@@ -531,6 +531,9 @@ used to selectively enable or disable certain integrations or set
 
 **Payload Fields:**
 
+*groupId \<string\>* (required) – The new database ID of the group you want
+associated with the (identified or anonymous) user.
+
 
 ## Support
 
