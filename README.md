@@ -213,6 +213,7 @@ content.**
 - [**Identify**](#identify)
 - [**Page**](#page)
 - [**Track**](#track)
+- [**Alias**](#alias)
 
 
 ### Overview
