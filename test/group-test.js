@@ -48,7 +48,7 @@ test('Group - spec', t => {
 
     window.analytics = createAnalyticsStub();
     const EVENT_TYPE = 'JOIN_TEAM';
-    const GROUP_ID = '0e8c78ea9d97a7b8185e8632';
+    const GROUP_ID = '0PsRtFsHB0';
     const action = {
       type: EVENT_TYPE,
       meta: {
@@ -73,6 +73,50 @@ test('Group - spec', t => {
       window.analytics[0] && window.analytics[0][1],
     ];
     st.deepEqual(event, ['group', GROUP_ID], 'passes along the groupId of the user');
+
+
+    window.analytics = null;
+  });
+
+  t.test('traits', st => {
+    st.plan(1);
+
+
+    window.analytics = createAnalyticsStub();
+    const EVENT_TYPE = 'JOIN_TEAM';
+    const GROUP_ID = '0PsRtFsHB0';
+    const TRAITS = {
+      email: 'user@acme.org',
+      login: 'acme',
+      name: 'Acme',
+      type: 'organization',
+    };
+    const action = {
+      type: EVENT_TYPE,
+      meta: {
+        analytics: {
+          eventType: EventTypes.group,
+          eventPayload: {
+            groupId: GROUP_ID,
+            traits: TRAITS,
+          },
+        },
+      },
+    };
+    const identity = val => val;
+    const tracker = createTracker();
+    const store = compose(
+      applyMiddleware(tracker)
+    )(createStore)(identity);
+
+
+    store.dispatch(action);
+    const event = [
+      window.analytics[0] && window.analytics[0][0],
+      window.analytics[0] && window.analytics[0][1],
+      window.analytics[0] && window.analytics[0][2],
+    ];
+    st.deepEqual(event, ['group', GROUP_ID, TRAITS], 'passes along the traits of the group');
 
 
     window.analytics = null;

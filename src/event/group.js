@@ -1,5 +1,5 @@
 function getGroupProperties() {
-  return [ 'groupId' ];
+  return [ 'groupId', 'traits' ];
 }
 
 function validateGroupFields(fields: Object) {

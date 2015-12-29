@@ -534,6 +534,22 @@ used to selectively enable or disable certain integrations or set
 *groupId \<string\>* (required) – The new database ID of the group you want
 associated with the (identified or anonymous) user.
 
+*traits \<Object\>* – A map of attributes about the group. These are
+completely at your discretion but common ones include employees and
+website. The following traits are reserved and have standardized meaning:
+
+- `address` <Object>
+- `avatar` <string>
+- `createdAt` <Date>
+- `description` <string>
+- `email` <string>
+- `employees` <string>
+- `id` <string>
+- `industry` <string>
+- `name` <string>
+- `phone` <string>
+- `website` <string>
+
 
 ## Support
 
