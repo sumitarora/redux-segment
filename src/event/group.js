@@ -1,4 +1,4 @@
-function getGroupProperties(fields: Object) {
+function getGroupProperties() {
   return [ 'groupId' ];
 }
 
