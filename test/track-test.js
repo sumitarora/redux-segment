@@ -26,7 +26,7 @@ test('Track - spec', t => {
       },
     };
     const notInferableAction = {
-      type: true,
+      // type: true,
       meta: {
         analytics: EventTypes.track,
       },
@@ -54,6 +54,42 @@ test('Track - spec', t => {
 
     const invalidAction = () => store.dispatch(notInferableAction);
     st.throws(invalidAction, /missing event/, 'throws error when event prop is missing and cannot be inferred');
+
+
+    window.analytics = null;
+  });
+
+  t.test('event', st => {
+    st.plan(1);
+
+
+    window.analytics = createAnalyticsStub();
+    const EVENT_TYPE = 'CHECKOUT';
+    const EVENT_NAME = 'Completed Order';
+    const action = {
+      type: EVENT_TYPE,
+      meta: {
+        analytics: {
+          eventType: EventTypes.track,
+          eventPayload: {
+            event: EVENT_NAME
+          },
+        },
+      },
+    };
+    const identity = val => val;
+    const tracker = createTracker();
+    const store = compose(
+      applyMiddleware(tracker)
+    )(createStore)(identity);
+
+
+    store.dispatch(action);
+    const defaultExplicitEvent = [
+      window.analytics[0] && window.analytics[0][0],
+      window.analytics[0] && window.analytics[0][1],
+    ];
+    st.deepEqual(defaultExplicitEvent, ['track', EVENT_NAME], 'emits a track event with an explicit event name');
 
 
     window.analytics = null;

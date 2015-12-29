@@ -127,7 +127,7 @@ And so the cycle continues...
 
 **Redux Segment is designed to allow you to _measure_ faster.** First,
 choose what you want to learn. Build it. Then, determine how you're
-going to meaure it. And finally, collect the result.
+going to measure it. And finally, collect the result.
 
 _You can, of course, still track all actions if you want by explictly
 marking each one._
@@ -301,7 +301,7 @@ particular A/B test variation.
 
 *options \<Object\>* – A map of [common
 fields](https://segment.com/docs/spec/common/#structure). This can be
-used to selectively enable or disable certain intergrations or set
+used to selectively enable or disable certain integrations or set
 `anonymousId` or `userId` on an ad-hoc basis.
 
 
@@ -340,7 +340,7 @@ fields](https://segment.com/docs/spec/common/#structure). This can be
 used to selectively enable or disable certain intergrations or set
 `anonymousId` or `userId` on an ad-hoc basis. More routinely, it is
 used to "backdate" events by setting the `timestamp` key to when the
-event actually occured (as opposed to when the action was dispatched).
+event actually occurred (as opposed to when the action was dispatched).
 This is useful for cases where an action may be triggered after a
 significant wait (e.g. setTimeout, callback, animations, etc...) and you
 want to capture the time of human action instead of, say, the time at
@@ -358,6 +358,42 @@ which that action was confirmed or some data was persisted.
 
 **Payload Fields:**
 
+*event \<string\>* – The name of the event you’re tracking. This field
+is required but if you don't explicitly provide one, it will be
+populated by the `type` value of the action\*. It's recommended that you
+make event names human-readable and (hopefully) instantly recognizable.
+It's further recommended that these names be built from a past-tense
+verb and a noun (e.g. 'Bought Merchandise', 'Opened Cart', 'Favorited
+Product', etc...). The following event names are reserved and have
+standardized meaning:
+
+<u>[A/B Testing Events](https://segment.com/docs/spec/ab-testing)</u>
+
+- `Experiment Viewed`
+> This event should be sent every time a customer sees a variation of an
+> active A/B Test.
+
+<u>[Ecommerce Events](https://segment.com/docs/spec/ecommerce)</u>
+
+- `Viewed Product Category`
+> This event fires when a visitor views a product category. That view
+> might happen on a page or modal.
+
+- `Viewed Product`
+> This event fires when a visitor views a product. That view might
+> happen on a page or preview modal.
+
+- `Added Product` / `Removed Product`
+> Fire the 'Added Product' event when a visitor adds a product to their
+> shopping cart and the 'Removed Product' event when a visitor removes a
+> product from their shopping cart.
+
+- `Completed Order`
+> The final step is to record a 'Completed Order' event when people
+> complete your checkout process.
+
+\* As of Redux 3.x, all actions MUST define a type property as per
+   [FSA](https://github.com/acdlite/flux-standard-action).
 
 ## Support
 
