@@ -16,10 +16,25 @@ npm install --save redux-segment
 
 ## Features
 
+- Send your data to over 100 apps with the flip of a switch (e.g. Google
+  Analytics, Mixpanel, Optimizely, Facebook Ads, Slack, Sentry, and many
+more...).
+  - You only need one snippet and you can turn integrations on and off
+    whenever you want.
+- Simultaneously load customer data into your data warehouse in minutes.
+  - Query raw data with SQL
+  - Analyze your products across web and mobile.
+  - No API layer, no queue, no transform, no batch, no load...and no
+    infrastructure maintenance costs
 - Out-of-the-box support for popular routers:
   - [redux-simple-router](https://github.com/rackt/redux-simple-router) ✝: ^1.0.2
   - [redux-router](https://github.com/acdlite/redux-router): ^1.0.3
-
+- Support for all key Segment specs:
+  - Identify
+  - Page
+  - Track
+  - Group
+  - Alias
 
 ✝ Recommended router. You can also trigger page views manually.
 
@@ -248,9 +263,8 @@ some distinct semantic information about your customer.
 Available types:
 
 - `EventTypes.identify`: who is the customer?
-- `EventTypes.track`: what are they doing?
 - `EventTypes.page`: what web page are they on?
-- `EventTypes.screen`: what app screen are they on?
+- `EventTypes.track`: what are they doing?
 - `EventTypes.group`: what account or organization are they part of?
 - `EventTypes.alias`: what was their past identity?
 
