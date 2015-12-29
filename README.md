@@ -484,6 +484,22 @@ used to selectively enable or disable certain integrations or set
 `anonymousId` or `userId` on an ad-hoc basis.
 
 
+### Alias
+
+> The alias method is used to merge two user identities, effectively
+> connecting two sets of user data as one.  
+> [Spec: Alias](https://segment.com/docs/spec/alias)
+
+**It's important to note that most integrations will automatically alias
+anonymous visitors the first time you dispatch an `EventTypes.identify` action. As
+a result, this event is only needed to manage identities in some
+integrations (e.g.
+[KISSmetrics](https://segment.com/docs/integrations/kissmetrics#alias),
+[Mixpanel](https://segment.com/docs/integrations/mixpanel#alias),
+[Trak](https://segment.com/docs/integrations/trak.io/#alias) and
+[Vero](https://segment.com/docs/integrations/vero#alias).**
+
+
 ## Support
 
 We're always around to help. If you run into any issues, want advice or
