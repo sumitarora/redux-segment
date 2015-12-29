@@ -457,6 +457,11 @@ Be sure to include all `products` in the cart as event properties, with the
 same properties as listed above (`id`, `sku`, `name`, `price`,
 `quantity` and `category`)
 
+*options \<Object\>* – A map of [common
+fields](https://segment.com/docs/spec/common/#structure). This can be
+used to selectively enable or disable certain integrations or set
+`anonymousId` or `userId` on an ad-hoc basis.
+
 
 ## Support
 
