@@ -195,6 +195,13 @@ content.**
 
 ### Spec API
 
+- [**Identify**](#identify)
+- [**Page**](#page)
+- [**Track**](#track)
+
+
+### Overview
+
 In Redux Segment, events are declared on the action they represent. For
 example:
 
