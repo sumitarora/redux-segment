@@ -507,6 +507,9 @@ integrations (e.g.
 *userId \<string\>* (required) – The new database ID you want associated with the
 user.
 
+*previousId \<string\>* (required) – The old ID of the user. If omitted, it's
+assumed to be the currently identified user’s ID (in the case of
+anonymous visitors, this is the auto-generated `anonymousId`).
 
 
 ## Support

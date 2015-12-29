@@ -80,4 +80,46 @@ test('Alias - spec', t => {
 
     window.analytics = null;
   });
+
+  t.test('previousId', st => {
+    st.plan(1);
+
+
+    window.analytics = createAnalyticsStub();
+    const USER_ID = '507f191e810c19729de860ea';
+    const PREVIOUS_ID = '019mr8mf4r';
+    const EMAIL = 'test@example.org';
+    const PASSWORD = 'supersecretssh!';
+    const action = {
+      type: 'SIGN_IN',
+      email: EMAIL,
+      password: PASSWORD,
+      meta: {
+        analytics: {
+          eventType: EventTypes.alias,
+          eventPayload: {
+            userId: USER_ID,
+            previousId: PREVIOUS_ID,
+          },
+        },
+      },
+    };
+    const identity = val => val;
+    const tracker = createTracker();
+    const store = compose(
+      applyMiddleware(tracker)
+    )(createStore)(identity);
+
+
+    store.dispatch(action);
+    const event = [
+      window.analytics[0] && window.analytics[0][0],
+      window.analytics[0] && window.analytics[0][1],
+      window.analytics[0] && window.analytics[0][2],
+    ];
+    st.deepEqual(event, ['alias', USER_ID, PREVIOUS_ID], 'passes along the previousId of the user');
+
+
+    window.analytics = null;
+  });
 });
