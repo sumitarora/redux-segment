@@ -302,22 +302,22 @@ you don't provide a userId, the traits will be attributed to the
 currently identified users (whether anonymous or not). The following
 traits are reserved and have standardized meaning:
 
-- `address`
-- `age`
-- `avatar`
-- `birthday`
-- `createdAt`
-- `description`
-- `email`
-- `firstName`
-- `gender`
-- `id`
-- `lastName`
-- `name`
-- `phone`
-- `title`
-- `username`
-- `website`
+- `address` <Object>
+- `age` <number>
+- `avatar` <string>
+- `birthday` <Date>
+- `createdAt` <Date>
+- `description` <string>
+- `email` <string>
+- `firstName` <string>
+- `gender` <string>
+- `id` <string>
+- `lastName` <string>
+- `name` <string>
+- `phone` <string>
+- `title` <string>
+- `username` <string>
+- `website` <string>
 
 Traits are also useful for such things as marking users as having seen a
 particular A/B test variation.
