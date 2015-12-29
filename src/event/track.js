@@ -7,7 +7,7 @@ function validateTrackFields(fields: Object, actionType: string) {
 }
 
 function getTrackProperties() {
-  return [ 'event' ];
+  return [ 'event', 'properties' ];
 }
 
 function extractFields(obj: Object, keys: Array, actionType: string) {

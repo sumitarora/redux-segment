@@ -72,7 +72,72 @@ test('Track - spec', t => {
         analytics: {
           eventType: EventTypes.track,
           eventPayload: {
-            event: EVENT_NAME
+            event: EVENT_NAME,
+          },
+        },
+      },
+    };
+    const identity = val => val;
+    const tracker = createTracker();
+    const store = compose(
+      applyMiddleware(tracker)
+    )(createStore)(identity);
+
+
+    store.dispatch(action);
+    const event = [
+      window.analytics[0] && window.analytics[0][0],
+      window.analytics[0] && window.analytics[0][1],
+    ];
+    st.deepEqual(event, ['track', EVENT_NAME], 'passes along the event name when the event name is explicit');
+
+
+    window.analytics = null;
+  });
+
+  t.test('properties', st => {
+    st.plan(1);
+
+
+    window.analytics = createAnalyticsStub();
+    const EVENT_TYPE = 'CHECKOUT';
+    const EVENT_NAME = 'Completed Order';
+    const PROPERTIES = {
+      orderId: '50314b8e9bcf000000000000',
+      total: 30,
+      revenue: 25,
+      shipping: 3,
+      tax: 2,
+      discount: 2.5,
+      coupon: 'hasbros',
+      currency: 'USD',
+      products: [
+        {
+          id: '507f1f77bcf86cd799439011',
+          sku: '45790-32',
+          name: 'Monopoly: 3rd Edition',
+          price: 19,
+          quantity: 1,
+          category: 'Games',
+        },
+        {
+          id: '505bd76785ebb509fc183733',
+          sku: '46493-32',
+          name: 'Uno Card Game',
+          price: 3,
+          quantity: 2,
+          category: 'Games',
+        },
+      ],
+    };
+    const action = {
+      type: EVENT_TYPE,
+      meta: {
+        analytics: {
+          eventType: EventTypes.track,
+          eventPayload: {
+            event: EVENT_NAME,
+            properties: PROPERTIES,
           },
         },
       },
@@ -88,8 +153,9 @@ test('Track - spec', t => {
     const defaultExplicitEvent = [
       window.analytics[0] && window.analytics[0][0],
       window.analytics[0] && window.analytics[0][1],
+      window.analytics[0] && window.analytics[0][2],
     ];
-    st.deepEqual(defaultExplicitEvent, ['track', EVENT_NAME], 'emits a track event with an explicit event name');
+    st.deepEqual(defaultExplicitEvent, ['track', EVENT_NAME, PROPERTIES], 'passes along the properties of the event');
 
 
     window.analytics = null;
