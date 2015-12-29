@@ -548,7 +548,7 @@ website. The following traits are reserved and have standardized meaning:
 - `industry` <string>
 - `name` <string>
 - `phone` <string>
-- `website` <string>
+- `website` <string>  
   
 *options \<Object\>* – A map of [common
 fields](https://segment.com/docs/spec/common/#structure). This can be
