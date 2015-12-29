@@ -3,6 +3,7 @@ import { extractIdentifyFields } from './event/identify';
 import { extractPageFields } from './event/page';
 import { extractTrackFields } from './event/track';
 import { extractAliasFields } from './event/alias';
+import { extractGroupFields } from './event/group';
 
 
 function emit(type: string, fields: Array) {
@@ -25,6 +26,7 @@ function getFields(type: string, fields: Object, actionType: string) {
     [EventTypes.page]: extractPageFields,
     [EventTypes.track]: eventFields => extractTrackFields(eventFields, actionType),
     [EventTypes.alias]: extractAliasFields,
+    [EventTypes.group]: extractGroupFields,
   };
 
   return typeFieldHandlers[type](fields);

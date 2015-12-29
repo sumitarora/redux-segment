@@ -214,6 +214,7 @@ content.**
 - [**Page**](#page)
 - [**Track**](#track)
 - [**Alias**](#alias)
+- [**Group**](#group)
 
 
 ### Overview
@@ -301,22 +302,22 @@ you don't provide a userId, the traits will be attributed to the
 currently identified users (whether anonymous or not). The following
 traits are reserved and have standardized meaning:
 
-- `address`
-- `age`
-- `avatar`
-- `birthday`
-- `createdAt`
-- `description`
-- `email`
-- `firstName`
-- `gender`
-- `id`
-- `lastName`
-- `name`
-- `phone`
-- `title`
-- `username`
-- `website`
+- `address` \<Object\>
+- `age` \<number\>
+- `avatar` \<string\>
+- `birthday` \<Date\>
+- `createdAt` \<Date\>
+- `description` \<string\>
+- `email` \<string\>
+- `firstName` \<string\>
+- `gender` \<string\>
+- `id` \<string\>
+- `lastName` \<string\>
+- `name` \<string\>
+- `phone` \<string\>
+- `title` \<string\>
+- `username` \<string\>
+- `website` \<string\>
 
 Traits are also useful for such things as marking users as having seen a
 particular A/B test variation.
@@ -423,57 +424,57 @@ help provide additional context later when analyzing the events, and in
 doing so, provide a more complete picture of what your users are doing.
 The following properties are reserved and have standardized meaning:
 
-- `name` <string> (reserved for future use)
-- `revenue` <number>
-- `currency` <string>
-- `value` <number> (useful for events with intrinsic, but not monetary,
+- `name` \<string\> (reserved for future use)
+- `revenue` \<number\>
+- `currency` \<string\>
+- `value` \<number\> (useful for events with intrinsic, but not monetary,
   value)
 
 <u>[A/B Testing Events](https://segment.com/docs/spec/ab-testing)</u>
 
 `Experiment Viewed`
 
-- `experiment_id` <string>
-- `experiment_name` <string>
-- `variation_id` <string>
-- `variation_name` <string>
+- `experiment_id` \<string\>
+- `experiment_name` \<string\>
+- `variation_id` \<string\>
+- `variation_name` \<string\>
 
 <u>[Ecommerce Events](https://segment.com/docs/spec/ecommerce)</u>
 
 `Viewed Product Category`
 
-- `category` <string>
+- `category` \<string>
 
 `Viewed Product`
 
-- `id`\* <string>
-- `sku`\* <string>
-- `name` <string>
-- `price` <string>
-- `category` <string>
+- `id`\* \<string\>
+- `sku`\* \<string\>
+- `name` \<string\>
+- `price` \<string\>
+- `category` \<string\>
 
 * `id` and `sku` don't have to be different, but they can.
 
 `Added Product` / `Removed Product`
 
-- `id` <string>
-- `sku` <string>
-- `name` <string>
-- `price` <string>
-- `quantity` <string>
-- `category` <string>
+- `id` \<string\>
+- `sku` \<string\>
+- `name` \<string\>
+- `price` \<string\>
+- `quantity` \<string\>
+- `category` \<string\>
 
 `Completed Order`
 
-- `orderId` <string>
-- `total` <number>
-- `revenue` <number>
-- `shipping` <number>
-- `tax` <number>
-- `discount` <number>
-- `coupon` <string>
-- `currency` <string>
-- `products` <Array>
+- `orderId` \<string\>
+- `total` \<number\>
+- `revenue` \<number\>
+- `shipping` \<number\>
+- `tax` \<number\>
+- `discount` \<number\>
+- `coupon` \<string\>
+- `currency` \<string\>
+- `products` \<Array\>
 
 Be sure to include all `products` in the cart as event properties, with the
 same properties as listed above (`id`, `sku`, `name`, `price`,
@@ -512,6 +513,43 @@ user.
 assumed to be the currently identified user’s ID (in the case of
 anonymous visitors, this is the auto-generated `anonymousId`).
 
+*options \<Object\>* – A map of [common
+fields](https://segment.com/docs/spec/common/#structure). This can be
+used to selectively enable or disable certain integrations or set
+`anonymousId` or `userId` on an ad-hoc basis.
+
+
+### Group
+
+> The group API call is how you associate an individual user with a
+> group—be it a company, organization, account, project, team or
+> whatever other crazy name you came up with for the same concept!
+> [Spec: Group](https://segment.com/docs/spec/group)
+
+**Type:**
+`EventTypes.group`
+
+**Payload Fields:**
+
+*groupId \<string\>* (required) – The new database ID of the group you want
+associated with the (identified or anonymous) user.
+
+*traits \<Object\>* – A map of attributes about the group. These are
+completely at your discretion but common ones include employees and
+website. The following traits are reserved and have standardized meaning:
+
+- `address` \<Object\>
+- `avatar` \<string\>
+- `createdAt` \<Date\>
+- `description` \<string\>
+- `email` \<string\>
+- `employees` \<string\>
+- `id` \<string\>
+- `industry` \<string\>
+- `name` \<string\>
+- `phone` \<string\>
+- `website` \<string\>
+  
 *options \<Object\>* – A map of [common
 fields](https://segment.com/docs/spec/common/#structure). This can be
 used to selectively enable or disable certain integrations or set

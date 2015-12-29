@@ -3,6 +3,7 @@ const EventTypes = {
   page: 'page',
   track: 'track',
   alias: 'alias',
+  group: 'group',
 };
 
 
