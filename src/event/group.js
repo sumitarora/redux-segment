@@ -1,5 +1,5 @@
 function getGroupProperties() {
-  return [ 'groupId', 'traits' ];
+  return [ 'groupId', 'traits', 'options' ];
 }
 
 function validateGroupFields(fields: Object) {
@@ -9,7 +9,7 @@ function validateGroupFields(fields: Object) {
 }
 
 function extractFields(obj: Object, keys: Array) {
-  return keys.map(key => obj[key]);
+  return keys.map(key => key === 'traits' ? obj[key] || {} : obj[key]);
 }
 
 function extractGroupFields(fields: Object) {
