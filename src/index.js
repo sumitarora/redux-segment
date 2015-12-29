@@ -1,6 +1,7 @@
 import EventTypes from './event/types';
-import { extractPageFields } from './event/page';
 import { extractIdentifyFields } from './event/identify';
+import { extractPageFields } from './event/page';
+import { extractTrackFields } from './event/track';
 
 
 function emit(type: string, fields: Array) {
@@ -17,10 +18,11 @@ function handleAction(next: Function, action: Object) {
   return handleActionType(next, action);
 }
 
-function getFields(type: string, fields: Object) {
+function getFields(type: string, fields: Object, actionType: string) {
   const typeFieldHandlers = {
     [EventTypes.identify]: extractIdentifyFields,
     [EventTypes.page]: extractPageFields,
+    [EventTypes.track]: eventFields => extractTrackFields(eventFields, actionType),
   };
 
   return typeFieldHandlers[type](fields);
@@ -37,7 +39,7 @@ function getEventType(spec) {
 function handleSpec(next: Function, action: Object) {
   const spec = action.meta.analytics;
   const type = getEventType(spec);
-  const fields = getFields(type, spec.eventPayload);
+  const fields = getFields(type, spec.eventPayload || {}, action.type);
 
   emit(type, fields);
 

@@ -1,6 +1,7 @@
 const EventTypes = {
-  page: 'page',
   identify: 'identify',
+  page: 'page',
+  track: 'track',
 };
 
 
