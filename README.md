@@ -214,6 +214,7 @@ content.**
 - [**Page**](#page)
 - [**Track**](#track)
 - [**Alias**](#alias)
+- [**Group**](#group)
 
 
 ### Overview
@@ -516,6 +517,19 @@ anonymous visitors, this is the auto-generated `anonymousId`).
 fields](https://segment.com/docs/spec/common/#structure). This can be
 used to selectively enable or disable certain integrations or set
 `anonymousId` or `userId` on an ad-hoc basis.
+
+
+### Group
+
+> The group API call is how you associate an individual user with a
+> group—be it a company, organization, account, project, team or
+> whatever other crazy name you came up with for the same concept!
+> [Spec: Group](https://segment.com/docs/spec/group)
+
+**Type:**
+`EventTypes.group`
+
+**Payload Fields:**
 
 
 ## Support
