@@ -4,24 +4,25 @@ import createAnalyticsStub from './helpers/segment-stub';
 import { createTracker, EventTypes } from '../src/index';
 
 
-test('Identify - spec', t => {
+test('Alias - spec', t => {
   t.test('default', st => {
     st.plan(2);
 
 
     window.analytics = createAnalyticsStub();
+    const EVENT_TYPE = 'SIGN_IN';
     const explicitAction = {
-      type: 'SIGN_IN',
+      type: EVENT_TYPE,
       meta: {
         analytics: {
-          eventType: EventTypes.identify,
+          eventType: EventTypes.alias,
         },
       },
     };
     const implicitAction = {
-      type: 'SIGN_IN',
+      type: EVENT_TYPE,
       meta: {
-        analytics: EventTypes.identify,
+        analytics: EventTypes.alias,
       },
     };
     const identity = val => val;
@@ -31,13 +32,11 @@ test('Identify - spec', t => {
     )(createStore)(identity);
 
 
-    store.dispatch(explicitAction);
-    const defaultExplicitEvent = window.analytics[0] && window.analytics[0][0];
-    st.equal(defaultExplicitEvent, 'identify', 'emits an identify event on explicit actions');
+    const explicitEvent = () => store.dispatch(explicitAction);
+    st.throws(explicitEvent, /missing userId/, 'throws error when userId prop is missing');
 
-    store.dispatch(implicitAction);
-    const defaultImplicitEvent = window.analytics[1] && window.analytics[1][0];
-    st.equal(defaultImplicitEvent, 'identify', 'emits an identify event on implicit actions');
+    const implicitEvent = () => store.dispatch(implicitAction);
+    st.throws(implicitEvent, /missing userId/, 'throws error when userId props is missing');
 
 
     window.analytics = null;
@@ -57,7 +56,7 @@ test('Identify - spec', t => {
       password: PASSWORD,
       meta: {
         analytics: {
-          eventType: EventTypes.identify,
+          eventType: EventTypes.alias,
           eventPayload: {
             userId: USER_ID,
           },
@@ -76,46 +75,31 @@ test('Identify - spec', t => {
       window.analytics[0] && window.analytics[0][0],
       window.analytics[0] && window.analytics[0][1],
     ];
-    st.deepEqual(event, ['identify', USER_ID], 'passes along the userId of the user');
+    st.deepEqual(event, ['alias', USER_ID], 'passes along the new userId of the user');
 
 
     window.analytics = null;
   });
 
-  t.test('traits', st => {
-    st.plan(2);
+  t.test('previousId', st => {
+    st.plan(1);
 
 
     window.analytics = createAnalyticsStub();
     const USER_ID = '507f191e810c19729de860ea';
+    const PREVIOUS_ID = '019mr8mf4r';
     const EMAIL = 'test@example.org';
     const PASSWORD = 'supersecretssh!';
-    const TRAITS = {
-      email: EMAIL,
-    };
     const action = {
       type: 'SIGN_IN',
       email: EMAIL,
       password: PASSWORD,
       meta: {
         analytics: {
-          eventType: EventTypes.identify,
+          eventType: EventTypes.alias,
           eventPayload: {
             userId: USER_ID,
-            traits: TRAITS,
-          },
-        },
-      },
-    };
-    const noUserIdAction = {
-      type: 'SIGN_IN',
-      email: EMAIL,
-      password: PASSWORD,
-      meta: {
-        analytics: {
-          eventType: EventTypes.identify,
-          eventPayload: {
-            traits: TRAITS,
+            previousId: PREVIOUS_ID,
           },
         },
       },
@@ -133,30 +117,21 @@ test('Identify - spec', t => {
       window.analytics[0] && window.analytics[0][1],
       window.analytics[0] && window.analytics[0][2],
     ];
-    st.deepEqual(event, ['identify', USER_ID, TRAITS], 'passes along the traits of the user');
-
-    store.dispatch(noUserIdAction);
-    const noUserIdEvent = [
-      window.analytics[1] && window.analytics[1][0],
-      window.analytics[1] && window.analytics[1][1],
-    ];
-    st.deepEqual(noUserIdEvent, ['identify', TRAITS], 'passes along the traits of the user when no userId is provided');
+    st.deepEqual(event, ['alias', USER_ID, PREVIOUS_ID], 'passes along the previousId of the user');
 
 
     window.analytics = null;
   });
 
   t.test('options', st => {
-    st.plan(3);
+    st.plan(2);
 
 
     window.analytics = createAnalyticsStub();
     const USER_ID = '507f191e810c19729de860ea';
+    const PREVIOUS_ID = '019mr8mf4r';
     const EMAIL = 'test@example.org';
     const PASSWORD = 'supersecretssh!';
-    const TRAITS = {
-      email: EMAIL,
-    };
     const OPTIONS = {
       'All': false,
       'Mixpanel': true,
@@ -168,37 +143,24 @@ test('Identify - spec', t => {
       password: PASSWORD,
       meta: {
         analytics: {
-          eventType: EventTypes.identify,
+          eventType: EventTypes.alias,
           eventPayload: {
             userId: USER_ID,
-            traits: TRAITS,
+            previousId: PREVIOUS_ID,
             options: OPTIONS,
           },
         },
       },
     };
-    const noUserIdAction = {
+    const noPreviousIdAction = {
       type: 'SIGN_IN',
       email: EMAIL,
       password: PASSWORD,
       meta: {
         analytics: {
-          eventType: EventTypes.identify,
+          eventType: EventTypes.alias,
           eventPayload: {
-            traits: TRAITS,
-            options: OPTIONS,
-          },
-        },
-      },
-    };
-    const justOptionsAction = {
-      type: 'SIGN_IN',
-      email: EMAIL,
-      password: PASSWORD,
-      meta: {
-        analytics: {
-          eventType: EventTypes.identify,
-          eventPayload: {
+            userId: USER_ID,
             options: OPTIONS,
           },
         },
@@ -218,23 +180,15 @@ test('Identify - spec', t => {
       window.analytics[0] && window.analytics[0][2],
       window.analytics[0] && window.analytics[0][3],
     ];
-    st.deepEqual(event, ['identify', USER_ID, TRAITS, OPTIONS], 'passes along the options of the identify event');
+    st.deepEqual(event, ['alias', USER_ID, PREVIOUS_ID, OPTIONS], 'passes along the options of the alias event');
 
-    store.dispatch(noUserIdAction);
-    const noUserIdEvent = [
+    store.dispatch(noPreviousIdAction);
+    const noPreviousIdEvent = [
       window.analytics[1] && window.analytics[1][0],
       window.analytics[1] && window.analytics[1][1],
       window.analytics[1] && window.analytics[1][2],
     ];
-    st.deepEqual(noUserIdEvent, ['identify', TRAITS, OPTIONS], 'passes along the options of the identify event when no userId is provided');
-
-    store.dispatch(justOptionsAction);
-    const justOptionsEvent = [
-      window.analytics[2] && window.analytics[2][0],
-      window.analytics[2] && window.analytics[2][1],
-      window.analytics[2] && window.analytics[2][2],
-    ];
-    st.deepEqual(justOptionsEvent, ['identify', {}, OPTIONS], 'passes along the options of the user when no userId or traits are provided');
+    st.deepEqual(noPreviousIdEvent, ['alias', USER_ID, OPTIONS], 'passes along the options of the alias event when no previousId is provided');
 
 
     window.analytics = null;

@@ -353,7 +353,7 @@ test('Page - spec', t => {
     const OPTIONS = {
       'All': false,
       'Mixpanel': true,
-      'KISSmetrics': true
+      'KISSmetrics': true,
     };
     const action = {
       type: 'CHANGE_VIEW',
@@ -428,7 +428,7 @@ test('Page - spec', t => {
       window.analytics[0] && window.analytics[0][3],
       window.analytics[0] && window.analytics[0][4],
     ];
-    st.deepEqual(event, ['page', CAT_NAME, PAGE_NAME, PROPERTIES, OPTIONS], 'passes along the options of the page when category is present');
+    st.deepEqual(event, ['page', CAT_NAME, PAGE_NAME, PROPERTIES, OPTIONS], 'passes along the options of the page event when category is present');
 
     store.dispatch(noCategoryAction);
     const noCatEvent = [
@@ -437,7 +437,7 @@ test('Page - spec', t => {
       window.analytics[1] && window.analytics[1][2],
       window.analytics[1] && window.analytics[1][3],
     ];
-    st.deepEqual(noCatEvent, ['page', PAGE_NAME, PROPERTIES, OPTIONS], 'passes along the options of the page when category is not present');
+    st.deepEqual(noCatEvent, ['page', PAGE_NAME, PROPERTIES, OPTIONS], 'passes along the options of the page event when category is not present');
 
     store.dispatch(startAtPropertiesAction);
     const startAtPropertiesEvent = [

@@ -9,6 +9,7 @@ TAPE-RUN = $(BIN)/tape-run
 TAP-SPEC = $(BIN)/tap-spec
 TAP-XUNIT = $(BIN)/tap-xunit
 WATCH = $(BIN)/watch
+ESLINT = $(BIN)/eslint
 
 
 #
@@ -27,7 +28,7 @@ TESTS = $(wildcard test/*-test.js)
 BROWSER ?= chrome
 
 BROWSERIFY_ARGS = \
-									-t $(BABELIFY)
+                  -t $(BABELIFY)
 
 
 #
@@ -57,6 +58,9 @@ build: redux-segment.js
 #
 # Test.
 #
+
+lint: node_modules
+	@$(ESLINT) $(SRC) $(TESTS)
 
 test: node_modules
 	@$(BROWSERIFY) $(TESTS) $(BROWSERIFY_ARGS) | $(TAPE-RUN) --browser $(BROWSER)

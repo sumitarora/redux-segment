@@ -213,6 +213,7 @@ content.**
 - [**Identify**](#identify)
 - [**Page**](#page)
 - [**Track**](#track)
+- [**Alias**](#alias)
 
 
 ### Overview
@@ -477,6 +478,39 @@ The following properties are reserved and have standardized meaning:
 Be sure to include all `products` in the cart as event properties, with the
 same properties as listed above (`id`, `sku`, `name`, `price`,
 `quantity` and `category`)
+
+*options \<Object\>* – A map of [common
+fields](https://segment.com/docs/spec/common/#structure). This can be
+used to selectively enable or disable certain integrations or set
+`anonymousId` or `userId` on an ad-hoc basis.
+
+
+### Alias
+
+> The alias method is used to merge two user identities, effectively
+> connecting two sets of user data as one.  
+> [Spec: Alias](https://segment.com/docs/spec/alias)
+
+**It's important to note that most integrations will automatically alias
+anonymous visitors the first time you dispatch an `EventTypes.identify` action. As
+a result, this event is only needed to manage identities in some
+integrations (e.g.
+[KISSmetrics](https://segment.com/docs/integrations/kissmetrics#alias),
+[Mixpanel](https://segment.com/docs/integrations/mixpanel#alias),
+[Trak](https://segment.com/docs/integrations/trak.io/#alias) and
+[Vero](https://segment.com/docs/integrations/vero#alias).**
+
+**Type:**
+`EventTypes.alias`
+
+**Payload Fields:**
+
+*userId \<string\>* (required) – The new database ID you want associated with the
+user.
+
+*previousId \<string\>* (required) – The old ID of the user. If omitted, it's
+assumed to be the currently identified user’s ID (in the case of
+anonymous visitors, this is the auto-generated `anonymousId`).
 
 *options \<Object\>* – A map of [common
 fields](https://segment.com/docs/spec/common/#structure). This can be

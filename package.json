@@ -33,8 +33,11 @@
   },
   "homepage": "https://github.com/rangle/redux-segment#readme",
   "devDependencies": {
+    "babel-eslint": "^5.0.0-beta6",
     "babelify": "6.4.0",
     "browserify": "^12.0.1",
+    "eslint": "^1.10.3",
+    "eslint-plugin-react": "^3.13.1",
     "history": "^1.17.0",
     "react": "^0.14.3",
     "react-addons-test-utils": "^0.14.3",
