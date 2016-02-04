@@ -27,7 +27,7 @@ more...).
   - No API layer, no queue, no transform, no batch, no load...and no
     infrastructure maintenance costs
 - Out-of-the-box support for popular routers:
-  - [redux-simple-router](https://github.com/rackt/redux-simple-router) ✝: ^1.0.2
+  - [react-router-redux](https://github.com/rackt/react-router-redux) ✝: ^2.1.0
   - [redux-router](https://github.com/acdlite/redux-router): ^1.0.3
 - Support for all key Segment specs:
   - Identify
