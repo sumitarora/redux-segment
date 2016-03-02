@@ -52,8 +52,8 @@ function handleSpec(next: Function, action: Object) {
 
 function handleActionType(next: Function, action: Object) {
   switch (action.type) {
-    case '@@router/INIT_PATH':
-    case '@@router/UPDATE_PATH':
+    case '@@router/UPDATE_LOCATION':
+    case '@@router/CALL_HISTORY_LOCATION':
     case '@@reduxReactRouter/initRoutes':
     case '@@reduxReactRouter/routerDidChange':
     case '@@reduxReactRouter/replaceRoutes':
