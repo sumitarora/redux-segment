@@ -55,7 +55,6 @@ function handleActionType(next: Function, action: Object) {
     case '@@router/INIT_PATH':
     case '@@router/UPDATE_PATH':
     case '@@router/UPDATE_LOCATION':
-    case '@@router/CALL_HISTORY_LOCATION':
     case '@@reduxReactRouter/initRoutes':
     case '@@reduxReactRouter/routerDidChange':
     case '@@reduxReactRouter/replaceRoutes':
