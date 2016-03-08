@@ -1,5 +1,5 @@
 # Redux Segment
-<a href="./.tag"><img src="./logo.png" width="48"></a> _Segment.io analytics integration for redux._  
+<a href="./.tag"><img src="./logo.png" width="48"></a> _Segment.io analytics integration for redux._
 
 [![CircleCI](https://img.shields.io/circleci/project/rangle/redux-segment.svg)](https://circleci.com/gh/rangle/redux-segment)
 [![npm](https://img.shields.io/npm/v/npm.svg)](https://www.npmjs.com/package/redux-segment)
@@ -27,7 +27,7 @@ more...).
   - No API layer, no queue, no transform, no batch, no load...and no
     infrastructure maintenance costs
 - Out-of-the-box support for popular routers:
-  - [react-router-redux](https://github.com/rackt/react-router-redux) ✝: ^2.1.0
+  - [react-router-redux](https://github.com/rackt/react-router-redux) ✝: >=2.1.0 < 5
   - [redux-router](https://github.com/acdlite/redux-router): ^1.0.3
 - Support for all key Segment specs:
   - Identify
@@ -109,7 +109,7 @@ state is small and centralized and changes are explicit. You should,
 however, resist the temptation. This constraint is core to the **design
 philosophy** of Redux Segment.
 
-> Analytics is about **learning**  
+> Analytics is about **learning**
 <img src="https://pbs.twimg.com/media/CTeedmKWEAAtR44.png">
 
 -- [@segment](https://twitter.com/segment)
@@ -342,7 +342,7 @@ used to selectively enable or disable certain integrations or set
 *name \<string\>* – The name of the page (e.g. 'Home').
 
 *category \<string\>* – The category of the page. This is used where page
-names live under a broader category (e.g. 'Products').  
+names live under a broader category (e.g. 'Products').
 <u>Note: If you specify a category, you must also provide a name.</u>
 
 *properties \<Object\>* – A map of page properties. The following
@@ -489,7 +489,7 @@ used to selectively enable or disable certain integrations or set
 ### Alias
 
 > The alias method is used to merge two user identities, effectively
-> connecting two sets of user data as one.  
+> connecting two sets of user data as one.
 > [Spec: Alias](https://segment.com/docs/spec/alias)
 
 **It's important to note that most integrations will automatically alias
@@ -549,7 +549,7 @@ website. The following traits are reserved and have standardized meaning:
 - `name` \<string\>
 - `phone` \<string\>
 - `website` \<string\>
-  
+
 *options \<Object\>* – A map of [common
 fields](https://segment.com/docs/spec/common/#structure). This can be
 used to selectively enable or disable certain integrations or set
