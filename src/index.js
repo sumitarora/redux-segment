@@ -54,7 +54,7 @@ function handleActionType(next: Function, action: Object) {
   switch (action.type) {
     case '@@router/INIT_PATH':
     case '@@router/UPDATE_PATH':
-    case '@@router/UPDATE_LOCATION':
+    case '@@router/LOCATION_CHANGE':
     case '@@reduxReactRouter/initRoutes':
     case '@@reduxReactRouter/routerDidChange':
     case '@@reduxReactRouter/replaceRoutes':
