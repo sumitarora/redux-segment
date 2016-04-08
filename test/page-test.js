@@ -3,8 +3,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { compose, createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import { Router, Route, IndexRoute, Link } from 'react-router';
-import createHistory from 'history/lib/createHashHistory';
+import { Router, Route, IndexRoute, Link, useRouterHistory } from 'react-router';
+import { createHashHistory } from 'history';
 import { syncReduxAndRouter, routeReducer } from 'redux-simple-router';
 import { ReduxRouter, routerStateReducer, reduxReactRouter } from 'redux-router';
 import createAnalyticsStub from './helpers/segment-stub';
@@ -17,7 +17,8 @@ test('Page - router support', t => {
 
 
     window.analytics = createAnalyticsStub();
-    const node = document.createElement('div');
+    const node = global.document.getElementById('app');
+
     const tracker = createTracker();
     const reducer = combineReducers({
       routing: routeReducer,
@@ -33,8 +34,11 @@ test('Page - router support', t => {
           <li><Link to="/bar">Bar</Link></li>
         </ul>
       </div>;
-    const history = createHistory();
+
+    const history = useRouterHistory(createHashHistory)({ queryKey: false });
     syncReduxAndRouter(history, store);
+
+
     ReactDOM.render(
       <Provider store={store}>
         <div>
@@ -59,12 +63,9 @@ test('Page - router support', t => {
     store.subscribe(() => {
       const fooLinkEvent = window.analytics[1] && window.analytics[1][0];
       st.equal(fooLinkEvent, 'page', 'triggers page event on navigation');
-
       window.analytics = null;
     });
     fooLink.click();
-
-
     ReactDOM.unmountComponentAtNode(node);
   });
 
@@ -78,8 +79,9 @@ test('Page - router support', t => {
     const reducer = combineReducers({
       router: routerStateReducer,
     });
+    const history = useRouterHistory(createHashHistory)({ queryKey: false });
     const store = compose(
-      reduxReactRouter({ createHistory }),
+      reduxReactRouter({ history }),
       applyMiddleware(tracker)
     )(createStore)(reducer);
     const Component = () =>
@@ -90,7 +92,6 @@ test('Page - router support', t => {
           <li><Link to="/bar">Bar</Link></li>
         </ul>
       </div>;
-    const history = createHistory();
     ReactDOM.render(
       <Provider store={store}>
         <div>

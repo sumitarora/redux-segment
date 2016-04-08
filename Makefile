@@ -10,7 +10,7 @@ TAP-SPEC = $(BIN)/tap-spec
 TAP-XUNIT = $(BIN)/tap-xunit
 WATCH = $(BIN)/watch
 ESLINT = $(BIN)/eslint
-
+BABEL-TAPE-RUNNER = $(BIN)/babel-tape-runner
 
 #
 # Files.
@@ -63,7 +63,7 @@ lint: node_modules
 	@$(ESLINT) $(SRC) $(TESTS)
 
 test: node_modules
-	@$(BROWSERIFY) $(TESTS) $(BROWSERIFY_ARGS) | $(TAPE-RUN) --browser $(BROWSER)
+	@$(BABEL-TAPE-RUNNER) -r 'test/helpers/test-setup.js' $(TESTS)
 .PHONY: test
 
 test-dev: node_modules
