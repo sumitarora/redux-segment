@@ -2,7 +2,7 @@
 <a href="./.tag"><img src="./logo.png" width="48"></a> _Segment.io analytics integration for redux._
 
 [![CircleCI](https://img.shields.io/circleci/project/rangle/redux-segment.svg)](https://circleci.com/gh/rangle/redux-segment)
-[![npm](https://img.shields.io/npm/v/npm.svg)](https://www.npmjs.com/package/redux-segment)
+[![npm](https://img.shields.io/npm/v/redux-segment.svg)](https://www.npmjs.com/package/redux-segment)
 [![GitHub
 license](https://img.shields.io/github/license/rangle/redux-segment.svg)](https://github.com/rangle/redux-segment/blob/master/LICENSE)
 
