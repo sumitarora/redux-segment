@@ -62,3 +62,7 @@ node_modules
 
 # Project build
 redux-segment.js
+
+# Webstorm
+*.idea
+

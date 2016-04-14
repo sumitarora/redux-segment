@@ -179,6 +179,31 @@ export default function configureStore(initialState) {
 _Note: Make sure to include the tracker *after* thunk or promise
 middleware so that it sees actual actions._
 
+**2. Optional, Access Third Party Redux Libraries**
+Provide an optional config object to `createTracker(customMapper)` to map third party Redux library ActionTypes to Segment EventTypes and replace out-of-the-box support (if necessary). Note that the mappings can be either simple EventTypes, or mappings to functions if required that returns state information and EventType.
+ 
+```
+import { EventTypes } from 'redux-segment'
+const customMapper = {
+  mapper: {
+    '@@router/CALL_HISTORY_LOCATION': EventTypes.page,
+    '@@router/UPDATE_LOCATION': EventTypes.page,
+    '@@reduxReactRouter/replaceRoutes': (getState) => {
+      return {
+        eventType: EventTypes.page,
+        eventPayload: {
+            name: ActionType.ADD_TODO,
+            text: getState().text,
+        }
+      }
+    }
+  }
+}
+
+const tracker = createTracker(customMapper);
+```
+
+
 **2. Copy the segment snippet into the header of your site**
 
 ```
