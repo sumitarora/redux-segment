@@ -70,8 +70,10 @@ export function addTodo(text) {
       analytics: {
         eventType: EventTypes.track,
         eventPayload: {
-          name: types.ADD_TODO,
-          text,
+          event: types.ADD_TODO,
+          properties: {
+            text
+          },
         },
       },
     },
